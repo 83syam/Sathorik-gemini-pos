@@ -1,1 +1,0 @@
-# Sathorik-gemini-pos
