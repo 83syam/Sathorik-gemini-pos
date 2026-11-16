@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sathorik Warung Pro - POS & E-Commerce System</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emeraldBrand: '#16A34A',
+                        goldBrand: '#F59E0B',
+                        dangerBrand: '#DC2626',
+                        neutralBg: '#F3F4F6'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-neutralBg text-gray-800 min-h-screen flex flex-col font-sans">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.switchTab('home')">
+                <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-lg flex items-center justify-center shadow-lg text-white font-black text-xl border border-amber-300">
+                    S
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-gray-900 leading-tight">Sathorik Warung Pro</h1>
+                    <p class="text-xs text-gray-500">Official POS & Retail System</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex space-x-2">
+                <button onclick="window.switchTab('home')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition"><i class="fa-solid fa-house mr-1"></i> Beranda</button>
+                <button onclick="window.switchTab('pedagang')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition"><i class="fa-solid fa-store mr-1"></i> Portal Pedagang</button>
+                <button onclick="window.switchTab('pembeli')" class="px-3 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition"><i class="fa-solid fa-cart-shopping mr-1"></i> Toko Pembeli</button>
+                <button onclick="window.switchTab('pembuat')" class="px-3 py-2 rounded-lg text-sm font-medium bg-amber-50 text-amber-700 hover:bg-amber-100 transition"><i class="fa-solid fa-shield-halved mr-1"></i> Pembuat (Sathorik)</button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button onclick="window.toggleMobileMenu()" class="md:hidden text-gray-700 text-xl p-2 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-4 py-3 space-y-2">
+            <button onclick="window.switchTab('home'); window.toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded hover:bg-gray-100"><i class="fa-solid fa-house mr-2"></i> Beranda</button>
+            <button onclick="window.switchTab('pedagang'); window.toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded hover:bg-gray-100"><i class="fa-solid fa-store mr-2"></i> Portal Pedagang</button>
+            <button onclick="window.switchTab('pembeli'); window.toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded hover:bg-gray-100"><i class="fa-solid fa-cart-shopping mr-2"></i> Toko Pembeli</button>
+            <button onclick="window.switchTab('pembuat'); window.toggleMobileMenu();" class="block w-full text-left py-2 px-3 rounded bg-amber-50 text-amber-700"><i class="fa-solid fa-shield-halved mr-2"></i> Pembuat (Sathorik)</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
+
+        <!-- 1. TAB BERANDA / LANDING -->
+        <section id="tab-home" class="space-y-6">
+            <div class="bg-gradient-to-r from-emerald-700 to-emerald-900 rounded-2xl text-white p-6 md:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between">
+                <div class="space-y-4 max-w-xl">
+                    <span class="bg-amber-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Aplikasi Warung & Grosir Modern</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold leading-tight">Kelola Warung Eceran & Grosir Jadi Lebih Mudah</h2>
+                    <p class="text-emerald-100 text-sm md:text-base">Dilengkapi katalog 55+ item barang sembako, bumbu, minuman, snack, dan obat warung sesuai standar harga lapangan.</p>
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <button onclick="window.switchTab('pedagang')" class="bg-white text-emerald-800 font-bold px-6 py-3 rounded-xl shadow hover:bg-emerald-50 transition"><i class="fa-solid fa-store mr-2"></i> Masuk Portal Pedagang</button>
+                        <button onclick="window.switchTab('pembeli')" class="bg-amber-500 text-gray-900 font-bold px-6 py-3 rounded-xl shadow hover:bg-amber-400 transition"><i class="fa-solid fa-bag-shopping mr-2"></i> Buka Katalog Toko</button>
+                    </div>
+                </div>
+                <div class="mt-8 md:mt-0 text-center">
+                    <div class="w-32 h-32 md:w-48 md:h-48 bg-white/10 rounded-3xl backdrop-blur-md border border-white/20 flex items-center justify-center mx-auto shadow-2xl">
+                        <i class="fa-solid fa-cash-register text-6xl md:text-8xl text-amber-400"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-boxes-stacked"></i></div>
+                    <h3 class="font-bold text-lg mb-2">Katalog Lapangan Lengkap</h3>
+                    <p class="text-gray-600 text-sm">Mencakup Sembako, Bumbu Dapur, Minuman Kemasan/Sachet, Snack, Obat Warung, hingga Kebutuhan Rumah Tangga.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                    <h3 class="font-bold text-lg mb-2">Kas & Catatan Hutang</h3>
+                    <p class="text-gray-600 text-sm">Catat transaksi tunai maupun hutang pelanggan dengan mudah dilengkapi perhitungan otomatis.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-globe"></i></div>
+                    <h3 class="font-bold text-lg mb-2">Link Toko Online Pembeli</h3>
+                    <p class="text-gray-600 text-sm">Bagikan link katalog online langsung ke WhatsApp pelanggan untuk pesanan antar atau ambil di warung.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. TAB PORTAL PEDAGANG -->
+        <section id="tab-pedagang" class="hidden space-y-6">
+            <div id="merchant-login-box" class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md border border-gray-100">
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-3"><i class="fa-solid fa-store"></i></div>
+                    <h3 class="text-2xl font-bold">Login Portal Pedagang</h3>
+                    <p class="text-sm text-gray-500">Masukkan nomor HP terdaftar untuk mulai menggunakan aplikasi.</p>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp / HP</label>
+                        <input type="text" id="merchantPhone" placeholder="Contoh: 081234567890" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <button onclick="window.loginPedagang()" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-lg hover:bg-emerald-700 transition shadow">Masuk Kasir & Warung</button>
+                </div>
+            </div>
+
+            <div id="merchant-dashboard" class="hidden space-y-6">
+                <!-- Dashboard Header Bar -->
+                <div class="bg-white p-4 rounded-xl shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900"><i class="fa-solid fa-store text-emerald-600 mr-2"></i> Warung Anda (Aktif)</h2>
+                        <p class="text-xs text-gray-500" id="merchantInfoText">Nomor HP: - | Status: Aktif Resmi</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="window.switchMerchantTab('kasir')" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-semibold hover:bg-emerald-700"><i class="fa-solid fa-cash-register mr-1"></i> Kasir POS</button>
+                        <button onclick="window.switchMerchantTab('produk')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-200"><i class="fa-solid fa-boxes-stacked mr-1"></i> Kelola Produk</button>
+                        <button onclick="window.switchMerchantTab('laporan')" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-200"><i class="fa-solid fa-chart-line mr-1"></i> Laporan</button>
+                        <button onclick="window.logoutPedagang()" class="px-3 py-2 bg-red-50 text-red-600 rounded-lg text-sm hover:bg-red-100"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </div>
+                </div>
+
+                <!-- Sub-tab Kasir -->
+                <div id="m-sub-kasir" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white p-5 rounded-xl shadow-sm space-y-4">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                            <h3 class="font-bold text-lg text-gray-800">Daftar Produk & Penjualan</h3>
+                            <span class="text-xs text-gray-500" id="posProductCount">Total Item: 0</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <input type="text" id="searchPosProduct" oninput="window.renderPosProducts()" placeholder="Cari barang (beras, kopi, obat, snack)..." class="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <select id="filterPosCategory" onchange="window.renderPosProducts()" class="w-full px-3 py-2 border rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                <option value="Semua">Semua Kategori</option>
+                                <option value="Sembako">Sembako</option>
+                                <option value="Bumbu Dapur">Bumbu Dapur</option>
+                                <option value="Makanan & Mie">Makanan & Mie</option>
+                                <option value="Minuman">Minuman</option>
+                                <option value="Makanan Ringan">Makanan Ringan / Snack</option>
+                                <option value="Obat-obatan">Obat-obatan Warung</option>
+                                <option value="Mandi & Kebersihan">Mandi & Kebersihan</option>
+                                <option value="Rokok & Lainnya">Rokok & Lainnya</option>
+                            </select>
+                        </div>
+                        <div id="posProductGrid" class="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[450px] overflow-y-auto p-1">
+                            <!-- Diisi via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm space-y-4 flex flex-col justify-between h-fit sticky top-20">
+                        <div>
+                            <h3 class="font-bold text-lg text-gray-800 mb-3">Keranjang Belanja</h3>
+                            <div id="posCartList" class="space-y-2 max-h-64 overflow-y-auto text-sm divide-y">
+                                <p class="text-gray-400 text-center py-4">Keranjang kosong</p>
+                            </div>
+                        </div>
+                        <div class="border-t pt-4 space-y-3">
+                            <div class="flex justify-between font-bold text-base">
+                                <span>Total Belanja:</span>
+                                <span id="posCartTotal" class="text-emerald-600">Rp 0</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="window.prosesCheckout('Tunai')" class="w-1/2 bg-emerald-600 text-white py-2.5 rounded-lg text-sm font-bold hover:bg-emerald-700">Bayar Tunai</button>
+                                <button onclick="window.prosesCheckout('Hutang')" class="w-1/2 bg-amber-500 text-gray-900 py-2.5 rounded-lg text-sm font-bold hover:bg-amber-400">Catat Hutang</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-tab Produk -->
+                <div id="m-sub-produk" class="hidden bg-white p-6 rounded-xl shadow-sm space-y-6">
+                    <div class="flex flex-wrap justify-between items-center gap-3">
+                        <h3 class="font-bold text-lg">Daftar Lengkap & Atur Stok Produk</h3>
+                        <div class="flex gap-2">
+                            <button onclick="window.resetDefaultProducts()" class="bg-amber-100 text-amber-800 px-3 py-2 rounded-lg text-xs font-bold hover:bg-amber-200"><i class="fa-solid fa-rotate mr-1"></i> Muat Ulang Katalog Lapangan</button>
+                            <button onclick="window.bukaModalProduk()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-emerald-700"><i class="fa-solid fa-plus mr-1"></i> Tambah Produk</button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto max-h-[500px]">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-gray-50 border-b sticky top-0">
+                                <tr>
+                                    <th class="p-3">Nama Produk</th>
+                                    <th class="p-3">Kategori</th>
+                                    <th class="p-3">Harga Ecer</th>
+                                    <th class="p-3">Stok</th>
+                                    <th class="p-3 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="merchantProductTableBody">
+                                <!-- Diisi via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Sub-tab Laporan -->
+                <div id="m-sub-laporan" class="hidden bg-white p-6 rounded-xl shadow-sm space-y-6">
+                    <h3 class="font-bold text-lg">Laporan Penjualan & Keuangan</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
+                            <p class="text-xs text-emerald-600 font-bold uppercase">Total Omset Penjualan (Tunai)</p>
+                            <h4 id="reportTotalOmset" class="text-2xl font-extrabold text-emerald-900 mt-1">Rp 0</h4>
+                        </div>
+                        <div class="bg-amber-50 p-4 rounded-xl border border-amber-100">
+                            <p class="text-xs text-amber-600 font-bold uppercase">Total Piutang / Hutang Pelanggan</p>
+                            <h4 id="reportTotalHutang" class="text-2xl font-extrabold text-amber-900 mt-1">Rp 0</h4>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-gray-700 mb-3">Riwayat Transaksi Terakhir</h4>
+                        <div id="reportTransactionList" class="space-y-2 text-sm">
+                            <p class="text-gray-400">Belum ada transaksi tercatat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. TAB TOKO PEMBELI (#toko-pembeli) -->
+        <section id="tab-pembeli" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm flex flex-col md:flex-row justify-between items-center gap-4 border-b">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900"><i class="fa-solid fa-basket-shopping text-amber-500 mr-2"></i> Toko Sembako & Kebutuhan Harian</h2>
+                    <p class="text-sm text-gray-500">Pilih barang kebutuhan warung Anda dengan harga pas & transparan.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1.5 rounded-full"><i class="fa-solid fa-circle-check mr-1"></i> Toko Buka</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Katalog Produk Pembeli -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" id="searchBuyerProduct" oninput="window.renderBuyerProducts()" placeholder="Cari beras, minyak, obat, snack, minuman..." class="w-full px-4 py-2.5 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm">
+                        <select id="filterBuyerCategory" onchange="window.renderBuyerProducts()" class="w-full px-4 py-2.5 border rounded-xl shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm">
+                            <option value="Semua">Semua Kategori Barang</option>
+                            <option value="Sembako">Sembako</option>
+                            <option value="Bumbu Dapur">Bumbu Dapur</option>
+                            <option value="Makanan & Mie">Makanan & Mie</option>
+                            <option value="Minuman">Minuman</option>
+                            <option value="Makanan Ringan">Makanan Ringan / Snack</option>
+                            <option value="Obat-obatan">Obat-obatan Warung</option>
+                            <option value="Mandi & Kebersihan">Mandi & Kebersihan</option>
+                            <option value="Rokok & Lainnya">Rokok & Lainnya</option>
+                        </select>
+                    </div>
+                    <div id="buyerProductGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <!-- Diisi via JS -->
+                    </div>
+                </div>
+
+                <!-- Keranjang & Checkout Pembeli -->
+                <div class="bg-white p-5 rounded-xl shadow-sm space-y-4 h-fit sticky top-20">
+                    <h3 class="font-bold text-lg text-gray-800 border-b pb-2"><i class="fa-solid fa-cart-shopping mr-2"></i> Keranjang Belanja Anda</h3>
+                    <div id="buyerCartList" class="space-y-2 max-h-60 overflow-y-auto text-sm divide-y">
+                        <p class="text-gray-400 text-center py-4">Keranjang masih kosong</p>
+                    </div>
+                    <div class="border-t pt-4 space-y-3">
+                        <div class="flex justify-between font-bold text-base">
+                            <span>Total Pembayaran:</span>
+                            <span id="buyerCartTotal" class="text-amber-600">Rp 0</span>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Nama Pemesan / Alamat Singkat</label>
+                            <input type="text" id="buyerCustomerName" placeholder="Contoh: Ibu Siti - Rt 02" class="w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                        <button onclick="window.checkoutBuyerWhatsApp()" class="w-full bg-emerald-600 text-white py-3 rounded-xl text-sm font-bold hover:bg-emerald-700 shadow flex items-center justify-center">
+                            <i class="fa-brands fa-whatsapp text-lg mr-2"></i> Pesan via WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TAB PORTAL PEMBUAT (SATHORIK) -->
+        <section id="tab-pembuat" class="hidden space-y-6">
+            <div id="pembuat-login-box" class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md border border-gray-100">
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center text-2xl mx-auto mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="text-2xl font-bold">Portal Pembuat (Sathorik)</h3>
+                    <p class="text-sm text-gray-500">Masukkan ID Tetap & PIN Keamanan Utama.</p>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">ID Pembuat</label>
+                        <input type="text" id="pembuatIdInput" value="Sathorik" class="w-full px-4 py-2 border rounded-lg bg-gray-50 font-bold" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">PIN Keamanan</label>
+                        <input type="password" id="pembuatPinInput" placeholder="Masukkan PIN (Default: 123456)" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                    </div>
+                    <button onclick="window.loginPembuat()" class="w-full bg-amber-500 text-gray-900 font-bold py-3 rounded-lg hover:bg-amber-400 transition shadow">Buka Dashboard Pembuat</button>
+                </div>
+            </div>
+
+            <div id="pembuat-dashboard" class="hidden space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900"><i class="fa-solid fa-crown text-amber-500 mr-2"></i> Dashboard Pembuat Mutlak</h2>
+                        <p class="text-xs text-gray-500">Hak paten sistem & kontrol lisensi pedagang seluruh cabang.</p>
+                    </div>
+                    <button onclick="window.logoutPembuat()" class="px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-bold hover:bg-red-100"><i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm space-y-4">
+                        <h3 class="font-bold text-lg text-gray-800"><i class="fa-solid fa-key text-amber-500 mr-2"></i> Generator Lisensi Merchant</h3>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nomor HP Merchant Target</label>
+                            <input type="text" id="licenseTargetPhone" placeholder="Contoh: 081234567890" class="w-full px-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                        </div>
+                        <button onclick="window.generateLicense()" class="w-full bg-emerald-600 text-white py-2.5 rounded-lg font-bold text-sm hover:bg-emerald-700 transition shadow">Aktifkan Lisensi Permanen / 7 Hari</button>
+                        <div id="licenseResultBox" class="text-xs bg-gray-50 p-3 rounded-lg text-gray-600 border"></div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm space-y-4">
+                        <h3 class="font-bold text-lg text-gray-800"><i class="fa-solid fa-power-off text-red-500 mr-2"></i> Remote Kill-Switch Sistem</h3>
+                        <p class="text-xs text-gray-500">Gunakan tombol darurat di bawah ini untuk mengunci atau membuka akses demo seluruh merchant secara jarak jauh.</p>
+                        <div class="flex gap-3 pt-2">
+                            <button onclick="window.toggleKillSwitch(false)" class="w-1/2 bg-red-600 text-white py-3 rounded-lg font-bold text-sm hover:bg-red-700 shadow">Matikan Akses (Lock)</button>
+                            <button onclick="window.toggleKillSwitch(true)" class="w-1/2 bg-emerald-600 text-white py-3 rounded-lg font-bold text-sm hover:bg-emerald-700 shadow">Buka Akses (Normal)</button>
+                        </div>
+                        <div id="killSwitchStatus" class="p-3 bg-emerald-50 text-emerald-800 rounded-lg text-xs font-bold text-center">Status Sistem: NORMAL / AKTIF</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL TAMBAH PRODUK -->
+    <div id="productModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl p-6 space-y-4 shadow-xl">
+            <h3 class="font-bold text-lg text-gray-900">Tambah Produk Baru</h3>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Produk</label>
+                    <input type="text" id="modalProdName" placeholder="Contoh: Beras Premium 5kg" class="w-full px-3 py-2 border rounded-lg text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Kategori</label>
+                    <select id="modalProdCat" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
+                        <option value="Sembako">Sembako</option>
+                        <option value="Bumbu Dapur">Bumbu Dapur</option>
+                        <option value="Makanan & Mie">Makanan & Mie</option>
+                        <option value="Minuman">Minuman</option>
+                        <option value="Makanan Ringan">Makanan Ringan / Snack</option>
+                        <option value="Obat-obatan">Obat-obatan Warung</option>
+                        <option value="Mandi & Kebersihan">Mandi & Kebersihan</option>
+                        <option value="Rokok & Lainnya">Rokok & Lainnya</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Harga Jual (Rp)</label>
+                        <input type="number" id="modalProdPrice" placeholder="15000" class="w-full px-3 py-2 border rounded-lg text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Stok</label>
+                        <input type="number" id="modalProdStock" placeholder="50" class="w-full px-3 py-2 border rounded-lg text-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="window.tutupModalProduk()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-semibold">Batal</button>
+                <button onclick="window.simpanProdukBaru()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-semibold">Simpan Produk</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t mt-auto py-4 text-center text-xs text-gray-500">
+        &copy; 2026 Sathorik Warung Pro. All Patent Rights Reserved.
+    </footer>
+
+    <!-- JAVASCRIPT UTAMA (KATALOG LENGKAP LAPANGAN) -->
+    <script>
+        // --- KATALOG LENGKAP BARANG & HARGA PASARAN LAPANGAN (56 ITEM) ---
+        const DEFAULT_PRODUCTS = [
+            // 1. SEMBAKO
+            { id: 101, name: 'Beras Ramos Super 5kg', category: 'Sembako', price: 73000, stock: 25 },
+            { id: 102, name: 'Beras Medium / IR 64 (1 kg)', category: 'Sembako', price: 13500, stock: 100 },
+            { id: 103, name: 'Minyak Goreng Bimoli / Filma 2L', category: 'Sembako', price: 38000, stock: 30 },
+            { id: 104, name: 'Minyak Goreng Minyakita 1L', category: 'Sembako', price: 16500, stock: 45 },
+            { id: 105, name: 'Gula Pasir Putih Curah / Kemasan 1kg', category: 'Sembako', price: 17500, stock: 50 },
+            { id: 106, name: 'Telur Ayam Negeri (1 kg)', category: 'Sembako', price: 28000, stock: 40 },
+            { id: 107, name: 'Tepung Terigu Segitiga Biru 1kg', category: 'Sembako', price: 14000, stock: 25 },
+            { id: 108, name: 'Tepung Tapioka / Sagu Pak Tani 500g', category: 'Sembako', price: 8500, stock: 20 },
+            { id: 109, name: 'Gas LPG 3 kg (Isi Ulang)', category: 'Sembako', price: 22000, stock: 15 },
+            { id: 110, name: 'Galon Aqua / Le Minerale (Isi Ulang)', category: 'Sembako', price: 21000, stock: 20 },
+
+            // 2. BUMBU DAPUR
+            { id: 201, name: 'Garam Dapur Cap Kapal 250g', category: 'Bumbu Dapur', price: 3500, stock: 40 },
+            { id: 202, name: 'Penyedap Royco Ayam/Sapi (1 Renceng)', category: 'Bumbu Dapur', price: 5500, stock: 35 },
+            { id: 203, name: 'Masako Ayam / Sapi (Eceran Sachet)', category: 'Bumbu Dapur', price: 500, stock: 200 },
+            { id: 204, name: 'Micin Sasa / Ajinomoto 100g', category: 'Bumbu Dapur', price: 5000, stock: 30 },
+            { id: 205, name: 'Kecap Manis Bango Pouch 210ml', category: 'Bumbu Dapur', price: 11500, stock: 25 },
+            { id: 206, name: 'Kecap Manis ABC Sachet (Ecer)', category: 'Bumbu Dapur', price: 1000, stock: 100 },
+            { id: 207, name: 'Saus Sambal ABC Botol 135ml', category: 'Bumbu Dapur', price: 8000, stock: 20 },
+            { id: 208, name: 'Bumbu Racik Indofood (Ayam/Tempe/Sayur)', category: 'Bumbu Dapur', price: 2500, stock: 60 },
+            { id: 209, name: 'Ladaku Merica Bubuk Sachet', category: 'Bumbu Dapur', price: 1000, stock: 80 },
+            { id: 210, name: 'Santan Kara Segitiga 65ml', category: 'Bumbu Dapur', price: 4000, stock: 45 },
+
+            // 3. MAKANAN & MIE
+            { id: 301, name: 'Indomie Goreng Special', category: 'Makanan & Mie', price: 3200, stock: 160 },
+            { id: 302, name: 'Indomie Kuah Soto / Ayam Bawang', category: 'Makanan & Mie', price: 3000, stock: 120 },
+            { id: 303, name: 'Mie Sedaap Goreng / Kuah', category: 'Makanan & Mie', price: 3200, stock: 100 },
+            { id: 304, name: 'Pop Mie Cup (Ayam / Baso / Kari)', category: 'Makanan & Mie', price: 5500, stock: 36 },
+            { id: 305, name: 'Sarden ABC Kaleng Kecil 155g', category: 'Makanan & Mie', price: 11500, stock: 20 },
+            { id: 306, name: 'Energen Sereal (Coklat / Vanila / Kacang)', category: 'Makanan & Mie', price: 2500, stock: 70 },
+
+            // 4. MINUMAN
+            { id: 401, name: 'Air Mineral Botol 600ml (Aqua/Le Minerale)', category: 'Minuman', price: 4000, stock: 72 },
+            { id: 402, name: 'Teh Pucuk Harum 350ml', category: 'Minuman', price: 4000, stock: 60 },
+            { id: 403, name: 'Teh Botol Sosro Kotak 250ml', category: 'Minuman', price: 4000, stock: 48 },
+            { id: 404, name: 'Floridina Jeruk 350ml', category: 'Minuman', price: 3500, stock: 48 },
+            { id: 405, name: 'Kopi Kapal Api Special Mix (1 Sachet)', category: 'Minuman', price: 2000, stock: 120 },
+            { id: 406, name: 'Kopi Good Day Cappuccino / Mocacinno', category: 'Minuman', price: 2500, stock: 100 },
+            { id: 407, name: 'Kopi ABC Susu Sachet', category: 'Minuman', price: 2000, stock: 100 },
+            { id: 408, name: 'Teh Celup Sosro / SariWangi (1 Box)', category: 'Minuman', price: 8500, stock: 25 },
+            { id: 409, name: 'Susu Kental Manis Frisian Flag Kaleng', category: 'Minuman', price: 13500, stock: 24 },
+            { id: 410, name: 'Susu Ultra Milk Kotak 250ml', category: 'Minuman', price: 7000, stock: 36 },
+            { id: 411, name: 'Nutrisari Jeruk / Marimas Sachet', category: 'Minuman', price: 1500, stock: 100 },
+
+            // 5. MAKANAN RINGAN / SNACK
+            { id: 501, name: 'Chitato / Kusuka Keripik Kecil', category: 'Makanan Ringan', price: 2500, stock: 40 },
+            { id: 502, name: 'Taro Net / Piattos Kecil', category: 'Makanan Ringan', price: 2500, stock: 40 },
+            { id: 503, name: 'Beng-Beng Wafer Coklat', category: 'Makanan Ringan', price: 2500, stock: 50 },
+            { id: 504, name: 'Better Biskuit Sandwich', category: 'Makanan Ringan', price: 2000, stock: 50 },
+            { id: 505, name: 'Nabati Richeese / Richoco Wafer', category: 'Makanan Ringan', price: 2000, stock: 60 },
+            { id: 506, name: 'Biskuit Roma Kelapa (1 Bungkus)', category: 'Makanan Ringan', price: 11000, stock: 20 },
+            { id: 507, name: 'Malkist Roma Abon / Coklat', category: 'Makanan Ringan', price: 8500, stock: 20 },
+            { id: 508, name: 'Sukro / Kacang Garuda Kecil', category: 'Makanan Ringan', price: 2000, stock: 45 },
+            { id: 509, name: 'Permen Kopiko / Relaxa (1 Bungkus Isi 50)', category: 'Makanan Ringan', price: 9500, stock: 15 },
+
+            // 6. OBAT-OBATAN WARUNG
+            { id: 601, name: 'Bodrex Sakit Kepala (1 Strip / 4 Tablet)', category: 'Obat-obatan', price: 3500, stock: 40 },
+            { id: 602, name: 'Paramex Flu & Sakit Kepala (1 Strip)', category: 'Obat-obatan', price: 3500, stock: 40 },
+            { id: 603, name: 'Panadol Biru / Extra (1 Strip)', category: 'Obat-obatan', price: 13500, stock: 20 },
+            { id: 604, name: 'Promag Obat Maag (1 Strip)', category: 'Obat-obatan', price: 9500, stock: 30 },
+            { id: 605, name: 'Tolak Angin Cair Sido Muncul (1 Sachet)', category: 'Obat-obatan', price: 4500, stock: 60 },
+            { id: 606, name: 'Antangin JRG Cair (1 Sachet)', category: 'Obat-obatan', price: 4000, stock: 50 },
+            { id: 607, name: 'Mixagrip Flu & Batuk (1 Strip)', category: 'Obat-obatan', price: 3500, stock: 40 },
+            { id: 608, name: 'Ultraflu Obat Flu (1 Strip)', category: 'Obat-obatan', price: 4000, stock: 35 },
+            { id: 609, name: 'Minyak Kayu Putih Cap Lang 30ml', category: 'Obat-obatan', price: 14500, stock: 15 },
+            { id: 610, name: 'Koyo Cabe / Salonpas (1 Sachet)', category: 'Obat-obatan', price: 7500, stock: 25 },
+            { id: 611, name: 'Hansaplast Plester Luka (Ecer 1 Lembar)', category: 'Obat-obatan', price: 1000, stock: 100 },
+
+            // 7. MANDI & KEBERSIHAN
+            { id: 701, name: 'Sabun Mandi Lifebuoy / Lux Batang', category: 'Mandi & Kebersihan', price: 4500, stock: 40 },
+            { id: 702, name: 'Shampoo Sunsilk / Clear Sachet (1 Renceng)', category: 'Mandi & Kebersihan', price: 11000, stock: 20 },
+            { id: 703, name: 'Pasta Gigi Pepsodent 75g', category: 'Mandi & Kebersihan', price: 9500, stock: 25 },
+            { id: 704, name: 'Deterjen Rinso / Daia 800g', category: 'Mandi & Kebersihan', price: 20000, stock: 20 },
+            { id: 705, name: 'Deterjen Bubuk Daia / So Klin Sachet', category: 'Mandi & Kebersihan', price: 1000, stock: 120 },
+            { id: 706, name: 'Sabun Cuci Piring Sunlight Pouch 210ml', category: 'Mandi & Kebersihan', price: 5500, stock: 35 },
+            { id: 707, name: 'Pewangi Pakaian Molto / Downy Sachet', category: 'Mandi & Kebersihan', price: 1000, stock: 120 },
+            { id: 708, name: 'Obat Nyamuk Bakar Baygon / Tiga Roda', category: 'Mandi & Kebersihan', price: 5000, stock: 30 },
+
+            // 8. ROKOK & LAINNYA
+            { id: 801, name: 'Rokok Sampoerna Mild 16 Batang', category: 'Rokok & Lainnya', price: 35000, stock: 20 },
+            { id: 802, name: 'Rokok Surya Pro Mild / Gudang Garam Surya 12', category: 'Rokok & Lainnya', price: 26500, stock: 25 },
+            { id: 803, name: 'Rokok Djarum Super 12 Batang', category: 'Rokok & Lainnya', price: 26500, stock: 25 },
+            { id: 804, name: 'Korek Api Gas Tokai', category: 'Rokok & Lainnya', price: 3500, stock: 40 },
+            { id: 805, name: 'Tisu Wajah Paseo / Nice 250 Sheets', category: 'Rokok & Lainnya', price: 11000, stock: 20 }
+        ];
+
+        // Gunakan kunci versi v2 agar katalog 55+ item langsung termuat
+        let state = {
+            currentMerchant: localStorage.getItem('sathorik_merchant') || null,
+            products: JSON.parse(localStorage.getItem('sathorik_products_v2')) || DEFAULT_PRODUCTS,
+            posCart: [],
+            buyerCart: [],
+            transactions: JSON.parse(localStorage.getItem('sathorik_trx')) || [],
+            killSwitch: JSON.parse(localStorage.getItem('sathorik_kill') ?? 'true')
+        };
+
+        function saveData() {
+            localStorage.setItem('sathorik_products_v2', JSON.stringify(state.products));
+            localStorage.setItem('sathorik_trx', JSON.stringify(state.transactions));
+            localStorage.setItem('sathorik_kill', JSON.stringify(state.killSwitch));
+            if (state.currentMerchant) {
+                localStorage.setItem('sathorik_merchant', state.currentMerchant);
+            } else {
+                localStorage.removeItem('sathorik_merchant');
+            }
+        }
+
+        window.resetDefaultProducts = function() {
+            if (confirm('Muat ulang seluruh 65+ daftar barang standar lapangan? Data stok akan kembali ke awal.')) {
+                state.products = [...DEFAULT_PRODUCTS];
+                saveData();
+                window.renderMerchantProducts();
+                window.renderPosProducts();
+                alert('Katalog lengkap berhasil dimuat!');
+            }
+        }
+
+        // --- NAVIGASI & TAB ROUTER ---
+        window.switchTab = function(tabName) {
+            ['home', 'pedagang', 'pembeli', 'pembuat'].forEach(t => {
+                const el = document.getElementById('tab-' + t);
+                if (el) el.classList.add('hidden');
+            });
+            const target = document.getElementById('tab-' + tabName);
+            if (target) target.classList.remove('hidden');
+
+            if (tabName === 'pedagang') {
+                checkMerchantSession();
+            }
+            if (tabName === 'pembeli') {
+                window.renderBuyerProducts();
+                window.renderBuyerCart();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.toggleMobileMenu = function() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        // --- HASH ROUTING UNTUK LINK PEMBELI (#toko-pembeli) ---
+        window.addEventListener('hashchange', () => {
+            if (window.location.hash === '#toko-pembeli') {
+                window.switchTab('pembeli');
+            }
+        });
+
+        window.onload = function() {
+            if (window.location.hash === '#toko-pembeli') {
+                window.switchTab('pembeli');
+            } else {
+                window.switchTab('home');
+            }
+        }
+
+        // --- PORTAL PEDAGANG ---
+        function checkMerchantSession() {
+            const loginBox = document.getElementById('merchant-login-box');
+            const dashBox = document.getElementById('merchant-dashboard');
+            if (state.currentMerchant) {
+                if (loginBox) loginBox.classList.add('hidden');
+                if (dashBox) dashBox.classList.remove('hidden');
+                document.getElementById('merchantInfoText').innerText = `Nomor HP: ${state.currentMerchant} | Status: Aktif Resmi`;
+                window.switchMerchantTab('kasir');
+            } else {
+                if (loginBox) loginBox.classList.remove('hidden');
+                if (dashBox) dashBox.classList.add('hidden');
+            }
+        }
+
+        window.loginPedagang = function() {
+            const phone = document.getElementById('merchantPhone').value.trim();
+            if (!phone) {
+                alert('Masukkan nomor HP Anda terlebih dahulu!');
+                return;
+            }
+            if (!state.killSwitch) {
+                alert('Maaf, akses sistem sedang dikunci oleh Pembuat (Kill-Switch Aktif).');
+                return;
+            }
+            state.currentMerchant = phone;
+            saveData();
+            checkMerchantSession();
+        }
+
+        window.logoutPedagang = function() {
+            state.currentMerchant = null;
+            localStorage.removeItem('sathorik_merchant');
+            checkMerchantSession();
+        }
+
+        window.switchMerchantTab = function(sub) {
+            ['kasir', 'produk', 'laporan'].forEach(s => {
+                const el = document.getElementById('m-sub-' + s);
+                if (el) el.classList.add('hidden');
+            });
+            const target = document.getElementById('m-sub-' + sub);
+            if (target) target.classList.remove('hidden');
+
+            if (sub === 'kasir') window.renderPosProducts();
+            if (sub === 'produk') window.renderMerchantProducts();
+            if (sub === 'laporan') window.renderReport();
+        }
+
+        // --- POS KASIR ---
+        window.renderPosProducts = function() {
+            const grid = document.getElementById('posProductGrid');
+            const countEl = document.getElementById('posProductCount');
+            if (!grid) return;
+
+            const keyword = (document.getElementById('searchPosProduct').value || '').toLowerCase();
+            const cat = document.getElementById('filterPosCategory').value || 'Semua';
+
+            const filtered = state.products.filter(p => {
+                const matchName = p.name.toLowerCase().includes(keyword);
+                const matchCat = cat === 'Semua' || p.category === cat;
+                return matchName && matchCat;
+            });
+
+            if (countEl) countEl.innerText = `Menampilkan ${filtered.length} item`;
+
+            grid.innerHTML = filtered.map(p => `
+                <div onclick="window.addToPosCart(${p.id})" class="border rounded-xl p-3 bg-white hover:border-emerald-500 cursor-pointer shadow-sm transition flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-medium">${p.category}</span>
+                        <h4 class="font-bold text-xs sm:text-sm text-gray-800 mt-1">${p.name}</h4>
+                    </div>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-emerald-600 font-bold text-xs sm:text-sm">Rp ${p.price.toLocaleString('id-ID')}</span>
+                        <span class="text-[11px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-semibold">Stok: ${p.stock}</span>
+                    </div>
+                </div>
+            `).join('') || '<p class="text-gray-400 text-xs col-span-full text-center py-6">Produk tidak ditemukan</p>';
+        }
+
+        window.addToPosCart = function(id) {
+            const prod = state.products.find(p => p.id === id);
+            if (!prod || prod.stock <= 0) {
+                alert('Stok produk habis!');
+                return;
+            }
+            const item = state.posCart.find(i => i.id === id);
+            if (item) {
+                if (item.qty < prod.stock) item.qty++;
+                else alert('Stok tidak mencukupi!');
+            } else {
+                state.posCart.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1 });
+            }
+            window.renderPosCart();
+        }
+
+        window.renderPosCart = function() {
+            const list = document.getElementById('posCartList');
+            const totalEl = document.getElementById('posCartTotal');
+            if (!list || !totalEl) return;
+
+            if (state.posCart.length === 0) {
+                list.innerHTML = '<p class="text-gray-400 text-center py-4">Keranjang kosong</p>';
+                totalEl.innerText = 'Rp 0';
+                return;
+            }
+
+            let total = 0;
+            list.innerHTML = state.posCart.map((item, idx) => {
+                total += item.price * item.qty;
+                return `
+                    <div class="py-2 flex justify-between items-center">
+                        <div>
+                            <p class="font-semibold text-xs text-gray-800">${item.name}</p>
+                            <p class="text-xs text-gray-500">Rp ${item.price.toLocaleString('id-ID')} x ${item.qty}</p>
+                        </div>
+                        <button onclick="window.removePosCart(${idx})" class="text-red-500 hover:text-red-700 text-xs px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            }).join('');
+            totalEl.innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+
+        window.removePosCart = function(idx) {
+            state.posCart.splice(idx, 1);
+            window.renderPosCart();
+        }
+
+        window.prosesCheckout = function(tipe) {
+            if (state.posCart.length === 0) {
+                alert('Keranjang masih kosong!');
+                return;
+            }
+            const total = state.posCart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+            
+            state.posCart.forEach(cartItem => {
+                const p = state.products.find(x => x.id === cartItem.id);
+                if (p) p.stock -= cartItem.qty;
+            });
+
+            state.transactions.unshift({
+                date: new Date().toLocaleString('id-ID'),
+                type: tipe,
+                total: total,
+                items: [...state.posCart]
+            });
+
+            state.posCart = [];
+            saveData();
+            window.renderPosCart();
+            window.renderPosProducts();
+            alert(`Transaksi ${tipe} Berhasil senilai Rp ${total.toLocaleString('id-ID')}!`);
+        }
+
+        // --- KELOLA PRODUK ---
+        window.renderMerchantProducts = function() {
+            const tbody = document.getElementById('merchantProductTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = state.products.map(p => `
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-3 font-medium">${p.name}</td>
+                    <td class="p-3 text-gray-500 text-xs">${p.category}</td>
+                    <td class="p-3 text-emerald-600 font-bold">Rp ${p.price.toLocaleString('id-ID')}</td>
+                    <td class="p-3">${p.stock}</td>
+                    <td class="p-3 text-center">
+                        <button onclick="window.hapusProduk(${p.id})" class="text-red-500 hover:text-red-700 px-2 py-1 text-xs"><i class="fa-solid fa-trash"></i> Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        window.bukaModalProduk = function() {
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        window.tutupModalProduk = function() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
+        window.simpanProdukBaru = function() {
+            const name = document.getElementById('modalProdName').value.trim();
+            const category = document.getElementById('modalProdCat').value.trim() || 'Sembako';
+            const price = parseInt(document.getElementById('modalProdPrice').value) || 0;
+            const stock = parseInt(document.getElementById('modalProdStock').value) || 0;
+
+            if (!name || price <= 0) {
+                alert('Nama produk dan harga wajib diisi dengan benar!');
+                return;
+            }
+
+            state.products.unshift({
+                id: Date.now(),
+                name,
+                category,
+                price,
+                stock
+            });
+
+            saveData();
+            window.tutupModalProduk();
+            window.renderMerchantProducts();
+            alert('Produk berhasil ditambahkan!');
+        }
+
+        window.hapusProduk = function(id) {
+            if (confirm('Yakin ingin menghapus produk ini?')) {
+                state.products = state.products.filter(p => p.id !== id);
+                saveData();
+                window.renderMerchantProducts();
+            }
+        }
+
+        // --- LAPORAN ---
+        window.renderReport = function() {
+            let omset = 0;
+            let hutang = 0;
+            state.transactions.forEach(t => {
+                if (t.type === 'Tunai') omset += t.total;
+                if (t.type === 'Hutang') hutang += t.total;
+            });
+
+            document.getElementById('reportTotalOmset').innerText = `Rp ${omset.toLocaleString('id-ID')}`;
+            document.getElementById('reportTotalHutang').innerText = `Rp ${hutang.toLocaleString('id-ID')}`;
+
+            const list = document.getElementById('reportTransactionList');
+            if (state.transactions.length === 0) {
+                list.innerHTML = '<p class="text-gray-400">Belum ada transaksi tercatat.</p>';
+                return;
+            }
+
+            list.innerHTML = state.transactions.slice(0, 15).map(t => `
+                <div class="p-3 bg-gray-50 rounded-lg border flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-xs">${t.date} - <span class="${t.type === 'Tunai' ? 'text-emerald-600' : 'text-amber-600'}">${t.type}</span></p>
+                        <p class="text-xs text-gray-500">${t.items.map(i => `${i.name} (${i.qty})`).join(', ')}</p>
+                    </div>
+                    <span class="font-bold text-sm">Rp ${t.total.toLocaleString('id-ID')}</span>
+                </div>
+            `).join('');
+        }
+
+        // --- TOKO PEMBELI ---
+        window.renderBuyerProducts = function() {
+            const grid = document.getElementById('buyerProductGrid');
+            if (!grid) return;
+
+            const keyword = (document.getElementById('searchBuyerProduct').value || '').toLowerCase();
+            const cat = document.getElementById('filterBuyerCategory').value || 'Semua';
+
+            const filtered = state.products.filter(p => {
+                const matchName = p.name.toLowerCase().includes(keyword);
+                const matchCat = cat === 'Semua' || p.category === cat;
+                return matchName && matchCat;
+            });
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">${p.category}</span>
+                        <h4 class="font-bold text-xs sm:text-sm text-gray-900 mt-2">${p.name}</h4>
+                        <p class="text-emerald-600 font-extrabold text-sm mt-1">Rp ${p.price.toLocaleString('id-ID')}</p>
+                    </div>
+                    <button onclick="window.addBuyerCart(${p.id})" class="mt-4 w-full bg-amber-500 text-gray-900 py-2 rounded-lg text-xs font-bold hover:bg-amber-400 transition shadow">
+                        <i class="fa-solid fa-cart-plus mr-1"></i> Beli / Masukkan
+                    </button>
+                </div>
+            `).join('') || '<p class="text-gray-400 text-xs col-span-full text-center py-6">Produk tidak tersedia pada kategori ini</p>';
+        }
+
+        window.addBuyerCart = function(id) {
+            const prod = state.products.find(p => p.id === id);
+            if (!prod || prod.stock <= 0) {
+                alert('Maaf, stok produk kosong!');
+                return;
+            }
+            const item = state.buyerCart.find(i => i.id === id);
+            if (item) {
+                item.qty++;
+            } else {
+                state.buyerCart.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1 });
+            }
+            window.renderBuyerCart();
+        }
+
+        window.renderBuyerCart = function() {
+            const list = document.getElementById('buyerCartList');
+            const totalEl = document.getElementById('buyerCartTotal');
+            if (!list || !totalEl) return;
+
+            if (state.buyerCart.length === 0) {
+                list.innerHTML = '<p class="text-gray-400 text-center py-4">Keranjang masih kosong</p>';
+                totalEl.innerText = 'Rp 0';
+                return;
+            }
+
+            let total = 0;
+            list.innerHTML = state.buyerCart.map((item, idx) => {
+                total += item.price * item.qty;
+                return `
+                    <div class="py-2 flex justify-between items-center">
+                        <div>
+                            <p class="font-semibold text-xs text-gray-800">${item.name}</p>
+                            <p class="text-xs text-gray-500">Rp ${item.price.toLocaleString('id-ID')} x ${item.qty}</p>
+                        </div>
+                        <button onclick="window.removeBuyerCart(${idx})" class="text-red-500 text-xs px-2 py-1"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            }).join('');
+            totalEl.innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+
+        window.removeBuyerCart = function(idx) {
+            state.buyerCart.splice(idx, 1);
+            window.renderBuyerCart();
+        }
+
+        window.checkoutBuyerWhatsApp = function() {
+            if (state.buyerCart.length === 0) {
+                alert('Keranjang belanja Anda masih kosong!');
+                return;
+            }
+            const name = document.getElementById('buyerCustomerName').value.trim() || 'Pelanggan Umum';
+            const total = state.buyerCart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+            
+            let pesananStr = state.buyerCart.map(i => `- ${i.name} (${i.qty}x) = Rp ${(i.price * i.qty).toLocaleString('id-ID')}`).join('\n');
+            const pesan = `Halo Warung Sembako, saya ingin memesan:\n\nNama: ${name}\n\n${pesananStr}\n\n*Total: Rp ${total.toLocaleString('id-ID')}*\n\nMohon segera disiapkan ya, terima kasih!`;
+            
+            const waUrl = `https://wa.me/?text=${encodeURIComponent(pesan)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // --- PORTAL PEMBUAT (SATHORIK) ---
+        window.loginPembuat = function() {
+            const pin = document.getElementById('pembuatPinInput').value.trim();
+            if (pin === '123456') {
+                document.getElementById('pembuat-login-box').classList.add('hidden');
+                document.getElementById('pembuat-dashboard').classList.remove('hidden');
+            } else {
+                alert('PIN Keamanan Salah! (Default PIN: 123456)');
+            }
+        }
+
+        window.logoutPembuat = function() {
+            document.getElementById('pembuatPinInput').value = '';
+            document.getElementById('pembuat-dashboard').classList.add('hidden');
+            document.getElementById('pembuat-login-box').classList.remove('hidden');
+        }
+
+        window.generateLicense = function() {
+            const phone = document.getElementById('licenseTargetPhone').value.trim();
+            if (!phone) {
+                alert('Masukkan nomor HP merchant target!');
+                return;
+            }
+            const box = document.getElementById('licenseResultBox');
+            box.innerHTML = `✅ Lisensi Sukses Dibuat!<br><b>Nomor:</b> ${phone}<br><b>Masa Aktif:</b> 7 Hari Uji Coba / Permanen Terdaftar.<br><b>Kode Akses:</b> STHRK-${Math.floor(1000 + Math.random() * 9000)}`;
+        }
+
+        window.toggleKillSwitch = function(status) {
+            state.killSwitch = status;
+            saveData();
+            const statusEl = document.getElementById('killSwitchStatus');
+            if (status) {
+                statusEl.className = 'p-3 bg-emerald-50 text-emerald-800 rounded-lg text-xs font-bold text-center';
+                statusEl.innerText = 'Status Sistem: NORMAL / AKTIF';
+                alert('Sistem berhasil dibuka kembali untuk seluruh merchant.');
+            } else {
+                statusEl.className = 'p-3 bg-red-50 text-red-800 rounded-lg text-xs font-bold text-center';
+                statusEl.innerText = 'Status Sistem: TERKUNCI (KILL-SWITCH AKTIF)';
+                alert('Sistem berhasil dikunci (Kill-Switch aktif).');
+            }
+        }
+    </script>
+</body>
+</html>
