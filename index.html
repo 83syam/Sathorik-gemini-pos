@@ -1,1 +1,1340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SATHORIK PRO INT - Smart Retail & Wholesale Management System</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#050507',
+                        goldPrimary: '#D4AF37',
+                        goldLight: '#F3E5AB',
+                        goldDark: '#AA771C',
+                        alertRed: '#DC2626'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: var(--bg-main, #050507);
+            color: var(--text-main, #F3E5AB);
+            font-family: system-ui, -apple-system, sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .glass-card {
+            background: rgba(18, 18, 22, 0.85);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--border-color, rgba(212, 175, 55, 0.35));
+            transition: border 0.3s ease;
+        }
+        .gold-glow {
+            box-shadow: 0 0 25px var(--glow-color, rgba(212, 175, 55, 0.2));
+        }
+        .alert-glow {
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.6);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
 
+        /* LOGO EMBLEM SYAM / SATHORIK */
+        .syam-emblem-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #050505;
+            border-radius: 9999px;
+            flex-shrink: 0;
+            box-shadow: 0 0 16px rgba(232, 189, 78, 0.28), 0 0 28px rgba(255, 243, 189, 0.12);
+        }
+        .syam-emblem-sm {
+            width: 52px;
+            height: 52px;
+        }
+        .syam-emblem-md {
+            width: 86px;
+            height: 86px;
+        }
+        .syam-emblem-lg {
+            width: 124px;
+            height: 124px;
+        }
+        .syam-banner-24 {
+            display: grid;
+            grid-template-columns: 76px 1fr;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 264px;
+            aspect-ratio: 2.4 / 1;
+            background: #050505;
+            border: 1px solid rgba(232, 189, 78, 0.35);
+            border-radius: 14px;
+            padding: 5px 8px;
+            box-shadow: 0 0 16px rgba(232, 189, 78, 0.2);
+        }
+        .syam-wordmark-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+        }
+        .syam-wordmark-title {
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 1.05;
+            letter-spacing: 0.22em;
+            background: linear-gradient(90deg, #fff3bd 0%, #e8bd4e 45%, #b3821f 78%, #fff3bd 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 6px rgba(232, 189, 78, 0.35));
+            white-space: nowrap;
+        }
+        .syam-wordmark-line {
+            height: 1px;
+            width: 100%;
+            margin: 3px 0;
+            background: linear-gradient(90deg, #fff3bd, #e8bd4e, #b3821f, #fff3bd);
+        }
+        .syam-wordmark-sub {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 8.5px;
+            letter-spacing: 0.28em;
+            color: #e8bd4e;
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* TOMBOL BERSINAR & BERGANTI WARNA */
+        .btn-luminous {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.35s ease, filter 0.35s ease, background 0.35s ease;
+            box-shadow: 0 0 12px rgba(232, 189, 78, 0.28), inset 0 1px 0 rgba(255, 243, 189, 0.4);
+        }
+        .btn-luminous:hover {
+            transform: translateY(-1px) scale(1.015);
+            filter: brightness(1.14) hue-rotate(16deg);
+            box-shadow: 0 0 20px rgba(255, 243, 189, 0.65), 0 0 32px rgba(232, 189, 78, 0.45);
+        }
+        .btn-luminous:active {
+            transform: scale(0.98);
+            filter: brightness(1.24) hue-rotate(32deg);
+        }
+        .btn-luminous::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 65%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 243, 189, 0.38), transparent);
+            transform: skewX(-22deg);
+            transition: left 0.55s ease;
+            pointer-events: none;
+        }
+        .btn-luminous:hover::after {
+            left: 150%;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .area-cetak-aktif, .area-cetak-aktif * {
+                visibility: visible;
+            }
+            .area-cetak-aktif {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 58mm;
+                background: white;
+                color: black;
+                padding: 4mm;
+                font-family: monospace;
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-3 max-w-lg mx-auto" id="appBody">
+
+    <!-- HEADER VERTICAL MOBILE -->
+    <header class="w-full glass-card rounded-2xl p-3 mb-3 gold-glow">
+        <div class="flex items-start justify-between gap-2 mb-2">
+            <div class="flex flex-col space-y-1.5 min-w-0 flex-1">
+                <!-- Banner Emblem Kiri + SYAM Horizontal Kanan + Garis + SATHORIK (Rasio 2,4:1) -->
+                <div class="syam-banner-24">
+                    <div class="syam-emblem-wrap w-full h-full" data-syam-logo></div>
+                    <div class="syam-wordmark-box">
+                        <div class="syam-wordmark-title">SYAM</div>
+                        <div class="syam-wordmark-line"></div>
+                        <div class="syam-wordmark-sub">SATHORIK</div>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-sm font-bold tracking-wider text-goldPrimary" id="headerNamaWarung">SATHORIK PRO INT</h1>
+                    <p class="text-[10px] text-gray-400">Smart Retail & Wholesale System</p>
+                </div>
+            </div>
+            <!-- BADGE TRIAL & KOLOM TEMA -->
+            <div class="flex flex-col items-end space-y-1.5 shrink-0">
+                <span id="badgeTrial" class="px-2 py-0.5 bg-amber-500/20 border border-goldPrimary text-goldPrimary text-[10px] rounded-full font-semibold animate-pulse">
+                    Trial: 7 Hari
+                </span>
+                <div class="flex items-center space-x-1 bg-zinc-900/90 border border-goldPrimary/40 px-1.5 py-1 rounded-xl">
+                    <button onclick="ubahTema('gold')" title="Gold" class="btn-luminous w-3.5 h-3.5 rounded-full bg-amber-400 border border-white/50 hover:scale-110 transition"></button>
+                    <button onclick="ubahTema('emerald')" title="Emerald" class="btn-luminous w-3.5 h-3.5 rounded-full bg-emerald-500 border border-white/50 hover:scale-110 transition"></button>
+                    <button onclick="ubahTema('cyber')" title="Cyber" class="btn-luminous w-3.5 h-3.5 rounded-full bg-cyan-400 border border-white/50 hover:scale-110 transition"></button>
+                    <button onclick="ubahTema('ruby')" title="Ruby" class="btn-luminous w-3.5 h-3.5 rounded-full bg-rose-500 border border-white/50 hover:scale-110 transition"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tombol Navigasi Cepat (Grid 2x2) -->
+        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-goldPrimary/20 text-xs">
+            <button onclick="gantiTab('pos')" class="btn-luminous py-2 bg-goldPrimary text-darkBg font-bold rounded-xl shadow text-center">🛒 Kasir POS</button>
+            <button onclick="gantiTab('pesananOnline')" class="btn-luminous py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow text-center flex items-center justify-center space-x-1">
+                <span>💬</span><span>Pesan WA</span>
+            </button>
+            <button onclick="gantiTab('stok')" class="btn-luminous py-2 bg-zinc-800 border border-goldPrimary/40 text-goldLight font-semibold rounded-xl text-center">📦 Stok & Produk</button>
+            <button onclick="gantiTab('bukuKas')" class="btn-luminous py-2 bg-zinc-800 border border-goldPrimary/40 text-goldLight font-semibold rounded-xl text-center">📊 Buku Kas</button>
+        </div>
+        <div class="mt-2 text-center flex justify-between items-center text-[10px]">
+            <span id="infoLisensiStatus" class="text-emerald-400 font-semibold">Status: Lisensi Trial Aktif</span>
+            <button onclick="gantiTab('portal')" class="btn-luminous px-2 py-0.5 rounded text-gray-300 hover:text-white underline">🚪 Ganti Portal</button>
+        </div>
+    </header>
+
+    <!-- KONTEN UTAMA -->
+    <main class="w-full flex-1 flex flex-col space-y-3 pb-4">
+
+        <!-- TAB 1: PORTAL / LOGIN AWAL -->
+        <div id="tabPortal" class="glass-card rounded-2xl p-4 gold-glow space-y-4">
+            <div class="text-center flex flex-col items-center">
+                <div class="syam-emblem-wrap syam-emblem-lg mb-2" data-syam-logo></div>
+                <h2 class="text-lg font-bold text-goldPrimary mb-1">Pintu Masuk SATHORIK PRO INT</h2>
+                <p class="text-[11px] text-gray-300">Sistem manajemen mandiri dengan keamanan Username & Password.</p>
+            </div>
+
+            <!-- FORM LOGIN MULTI-PERAN -->
+            <div class="space-y-3 bg-zinc-900/80 p-3.5 rounded-xl border border-goldPrimary/30 text-xs">
+                <div>
+                    <label class="block text-goldLight font-semibold mb-1">Pilih Portal Login:</label>
+                    <select id="pilihPeranLogin" onchange="aturFormLogin()" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-white focus:outline-none">
+                        <option value="creator">👑 Login Creator (Pusat)</option>
+                        <option value="pedagang">🏪 Masuk Warung (Pedagang)</option>
+                        <option value="pembeli">🛍️ Katalog & Pesan WA (Pembeli)</option>
+                    </select>
+                </div>
+
+                <div id="divUsername">
+                    <label class="block text-gray-300 font-semibold mb-1">Username:</label>
+                    <input type="text" id="inputUsername" placeholder="Masukkan username..." class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-white focus:outline-none">
+                </div>
+
+                <div id="divPassword">
+                    <label class="block text-gray-300 font-semibold mb-1">Password:</label>
+                    <input type="password" id="inputPassword" placeholder="Masukkan password..." class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-white focus:outline-none">
+                </div>
+
+                <div id="divNoWaPedagang" class="hidden">
+                    <label class="block text-gray-300 font-semibold mb-1">Nomor WhatsApp Warung (cth: 62812...):</label>
+                    <input type="text" id="inputNoWa" placeholder="628123456789" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-white focus:outline-none">
+                </div>
+
+                <button onclick="prosesLoginSathorik()" class="btn-luminous w-full py-2.5 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-400 text-darkBg font-bold rounded-xl text-xs shadow hover:opacity-95 transition">
+                    Masuk ke Sistem 🚀
+                </button>
+            </div>
+        </div>
+
+        <!-- TAB CREATOR PANEL (KHUSUS PUSAT) -->
+        <div id="tabCreatorPanel" class="hidden space-y-3">
+            <div class="glass-card rounded-2xl p-4 space-y-3">
+                <div class="flex justify-between items-center border-b border-goldPrimary/20 pb-2">
+                    <div class="flex items-center space-x-2.5">
+                        <div class="syam-emblem-wrap syam-emblem-sm" data-syam-logo></div>
+                        <div>
+                            <h3 class="text-sm font-bold text-goldPrimary">👑 Panel Kontrol Creator</h3>
+                            <p class="text-[10px] text-gray-300">Buat kode lisensi & bon serah terima ke pedagang.</p>
+                        </div>
+                    </div>
+                    <button onclick="gantiTab('pos')" class="btn-luminous px-2.5 py-1 bg-zinc-800 text-gray-300 rounded-lg text-xs">Tutup</button>
+                </div>
+
+                <!-- Generator Kode Acak + Data Serah Terima -->
+                <div class="bg-zinc-900/90 p-3 rounded-xl border border-goldPrimary/30 space-y-2 text-xs">
+                    <label class="block text-goldLight font-semibold">Buat Lisensi & Bon Serah Terima Pelanggan:</label>
+                    <input type="text" id="namaCustInput" placeholder="Nama Toko / Pemilik Warung (cth: Toko Barokah)" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-white focus:outline-none">
+                    <input type="text" id="alamatCustInput" placeholder="Alamat / No. HP Pelanggan (opsional)" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-white focus:outline-none">
+                    <input type="number" id="nominalLisensiInput" placeholder="Biaya Lisensi Rp (cth: 150000)" value="150000" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-white focus:outline-none">
+                    <button onclick="generateKodeBaru()" class="btn-luminous w-full py-2 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-darkBg font-bold rounded-xl shadow">
+                        🎲 Generate Kode & Buat Bon Serah Terima
+                    </button>
+                </div>
+
+                <!-- Daftar Kode Lisensi Aktif -->
+                <div>
+                    <h4 class="text-xs font-semibold text-gray-300 mb-1">Daftar Kode Lisensi Terbit:</h4>
+                    <div id="daftarListKode" class="space-y-1.5 max-h-56 overflow-y-auto text-xs">
+                        <p class="text-gray-500 text-center py-2">Belum ada kode yang digenerate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: KASIR POS -->
+        <div id="tabPos" class="hidden space-y-3">
+            <div class="glass-card rounded-xl p-2.5 flex justify-between items-center text-xs">
+                <span class="font-bold text-goldPrimary">Mode Penjualan:</span>
+                <div class="flex space-x-1">
+                    <button id="btnEcer" onclick="setModeJual('ecer')" class="btn-luminous px-3 py-1 rounded-lg bg-goldPrimary text-darkBg font-bold text-xs transition">Eceran</button>
+                    <button id="btnGrosir" onclick="setModeJual('grosir')" class="btn-luminous px-3 py-1 rounded-lg bg-zinc-800 text-gray-300 text-xs transition">Grosir</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3">
+                <div class="glass-card rounded-2xl p-3">
+                    <div class="flex justify-between items-center mb-2 gap-1">
+                        <h3 class="text-xs font-bold text-goldPrimary uppercase">Katalog Barang (Rujukan PIHPS Jabar)</h3>
+                        <input type="text" id="cariBarang" onkeyup="filterKatalog()" placeholder="Cari nama / obat..." class="bg-zinc-900 border border-goldPrimary/30 rounded-lg px-2 py-1 text-xs text-white w-40 focus:outline-none">
+                    </div>
+                    <!-- Filter Kategori Cepat di POS -->
+                    <div class="flex space-x-1 overflow-x-auto pb-2 mb-1 text-[10px]">
+                        <button onclick="filterKategoriPos('Semua')" class="btn-luminous px-2 py-0.5 bg-goldPrimary text-darkBg font-bold rounded-md whitespace-nowrap">Semua</button>
+                        <button onclick="filterKategoriPos('Sembako')" class="btn-luminous px-2 py-0.5 bg-zinc-800 text-gray-300 rounded-md whitespace-nowrap">Sembako</button>
+                        <button onclick="filterKategoriPos('Protein & Telur')" class="btn-luminous px-2 py-0.5 bg-zinc-800 text-amber-300 font-semibold rounded-md whitespace-nowrap">🥚 Protein & Telur</button>
+                        <button onclick="filterKategoriPos('Makanan')" class="btn-luminous px-2 py-0.5 bg-zinc-800 text-amber-200 font-semibold rounded-md whitespace-nowrap">🍜 Makanan</button>
+                        <button onclick="filterKategoriPos('Obat Warung')" class="btn-luminous px-2 py-0.5 bg-zinc-800 text-emerald-400 font-semibold rounded-md whitespace-nowrap">💊 Obat Warung</button>
+                        <button onclick="filterKategoriPos('Minuman')" class="btn-luminous px-2 py-0.5 bg-zinc-800 text-gray-300 rounded-md whitespace-nowrap">Minuman</button>
+                        <button onclick="filterKategoriPos('Bumbu Dapur')" class="btn-luminous px-2 py-0.5 bg-zinc-800 text-gray-300 rounded-md whitespace-nowrap">Bumbu</button>
+                        <button onclick="filterKategoriPos('Perawatan Tubuh')" class="btn-luminous px-2 py-0.5 bg-zinc-800 text-gray-300 rounded-md whitespace-nowrap">Perawatan</button>
+                    </div>
+                    <div id="daftarKatalog" class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1"></div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-3 border border-goldPrimary/40">
+                    <h3 class="text-xs font-bold text-goldPrimary mb-2 uppercase flex justify-between">
+                        <span>Keranjang Belanja</span>
+                        <span id="labelModeAktif" class="text-[10px] text-amber-400">[Eceran]</span>
+                    </h3>
+                    <div id="isiKeranjang" class="space-y-1.5 max-h-36 overflow-y-auto text-xs mb-2 border-b border-zinc-800 pb-2">
+                        <p class="text-gray-500 text-center py-2">Keranjang masih kosong</p>
+                    </div>
+                    
+                    <div class="space-y-2 pt-1 text-xs">
+                        <div class="flex justify-between font-bold text-sm text-goldPrimary">
+                            <span>Total Tagihan:</span>
+                            <span id="totalBelanja">Rp 0</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="prosesBayar('tunai')" class="btn-luminous w-1/2 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow">Bayar Tunai</button>
+                            <button onclick="prosesBayar('hutang')" class="btn-luminous w-1/2 py-2 bg-alertRed text-white font-bold rounded-xl alert-glow">Catat Hutang</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: PEMESANAN ONLINE VIA WHATSAPP -->
+        <div id="tabPesananOnline" class="hidden space-y-3">
+            <div class="glass-card rounded-2xl p-4 space-y-3">
+                <div class="text-center border-b border-goldPrimary/20 pb-2 flex flex-col items-center">
+                    <div class="syam-emblem-wrap syam-emblem-md mb-1.5" data-syam-logo></div>
+                    <h3 class="text-sm font-bold text-goldPrimary">🛍️ Pesanan Online ke Warung</h3>
+                    <p class="text-[10px] text-gray-300">Kirim pesanan langsung via WhatsApp pedagang.</p>
+                </div>
+                
+                <div class="space-y-2 text-xs">
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Nama Pemesan / Pembeli:</label>
+                        <input type="text" id="namaPembeliWA" placeholder="cth: Ibu Siti" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Metode Penerimaan:</label>
+                        <select id="metodeKirimWA" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-white focus:outline-none">
+                            <option value="Ambil Sendiri di Toko">Ambil Sendiri di Toko (Gratis)</option>
+                            <option value="Diantar ke Alamat (+ Ongkir)">Diantar ke Alamat (Dengan Ongkir)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 font-semibold mb-1">Daftar Belanjaan:</label>
+                        <textarea id="catatanPesananWA" rows="3" placeholder="cth: 2 Kg Beras Medium, 1 Kg Telur Ayam Ras, 1 Strip Paracetamol" class="w-full bg-zinc-900 border border-goldPrimary/40 rounded-xl px-3 py-2 text-white focus:outline-none"></textarea>
+                    </div>
+                    <button onclick="kirimPesananWhatsApp()" class="btn-luminous w-full py-3 bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-500 text-white font-bold rounded-xl shadow-lg flex items-center justify-center space-x-2 text-sm">
+                        <span>💬</span>
+                        <span>Kirim Pesanan ke WhatsApp Pedagang</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: STOK & PRODUK -->
+        <div id="tabStok" class="hidden space-y-3">
+            <div class="glass-card rounded-2xl p-3">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xs font-bold text-goldPrimary uppercase">Manajemen Stok & Kategori (PIHPS Jabar)</h3>
+                    <button onclick="tambahProdukBaru()" class="btn-luminous px-2.5 py-1 bg-goldPrimary text-darkBg font-bold rounded-lg text-xs">+ Produk</button>
+                </div>
+                <div class="flex items-center space-x-2 mb-3">
+                    <select id="filterKategoriStok" onchange="renderTabelStok()" class="w-full bg-zinc-900 border border-goldPrimary/30 rounded-lg px-2 py-1 text-xs text-white focus:outline-none">
+                        <option value="Semua">Semua Kategori</option>
+                        <option value="Sembako">Sembako</option>
+                        <option value="Protein & Telur">🥚 Protein & Telur</option>
+                        <option value="Makanan">🍜 Makanan</option>
+                        <option value="Obat Warung">💊 Obat Warung</option>
+                        <option value="Minuman">Minuman</option>
+                        <option value="Bumbu Dapur">Bumbu Dapur</option>
+                        <option value="Perawatan Tubuh">Perawatan Tubuh</option>
+                    </select>
+                </div>
+                <div id="tabelStok" class="space-y-2 max-h-80 overflow-y-auto text-xs"></div>
+            </div>
+        </div>
+
+        <!-- TAB 5: BUKU KAS & LAPORAN -->
+        <div id="tabBukuKas" class="hidden space-y-3">
+            <div class="glass-card rounded-2xl p-3 space-y-3">
+                <h3 class="text-xs font-bold text-goldPrimary uppercase">Laporan Omzet & Buku Kas</h3>
+                <div class="grid grid-cols-2 gap-2 text-center">
+                    <div class="bg-zinc-900 p-2.5 rounded-xl border border-goldPrimary/20">
+                        <p class="text-[10px] text-gray-400">Total Omzet Hari Ini</p>
+                        <p id="statOmzet" class="text-sm font-bold text-goldPrimary">Rp 0</p>
+                    </div>
+                    <div class="bg-zinc-900 p-2.5 rounded-xl border border-alertRed/40">
+                        <p class="text-[10px] text-gray-400">Total Piutang (Hutang)</p>
+                        <p id="statHutang" class="text-sm font-bold text-alertRed">Rp 0</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold text-gray-300 mb-1">Riwayat Transaksi Masuk (Klik Bon untuk Cetak Ulang)</h4>
+                    <div id="riwayatTransaksi" class="space-y-1.5 max-h-60 overflow-y-auto text-xs">
+                        <p class="text-gray-500 text-center py-2">Belum ada transaksi.</p>
+                    </div>
+                </div>
+                <button onclick="cetakLaporanKas()" class="btn-luminous w-full py-2 bg-zinc-800 border border-goldPrimary/40 text-goldLight rounded-xl text-xs font-bold">Cetak Laporan / Simpan PDF</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- AREA 1: BON TRANSAKSI LENGKAP (PEDAGANG KE PEMBELI) -->
+    <div id="areaCetakStruk" class="hidden">
+        <div style="text-align: center; margin-bottom: 5px; border-bottom: 1px solid black; padding-bottom: 4px;">
+            <div style="display:flex; justify-content:center; margin-bottom:3px;">
+                <div class="syam-emblem-wrap syam-emblem-sm" data-syam-logo></div>
+            </div>
+            <h3 style="font-weight: bold; font-size: 12px; margin: 0;" id="strukNamaWarung">SATHORIK MART</h3>
+            <p style="font-size: 8px; margin: 1px 0;">BON TRANSAKSI & SERAH TERIMA BARANG</p>
+            <p style="font-size: 8px; margin: 1px 0;" id="strukNoBon">No. Bon: -</p>
+            <p style="font-size: 8px; margin: 1px 0;" id="strukWaktu">-</p>
+        </div>
+        <div style="font-size: 8.5px; margin-bottom: 4px;">
+            <div>Kepada Yth: <strong id="strukNamaPembeli">Pelanggan Umum</strong></div>
+            <div>Kasir/Toko: <span id="strukKasir">Admin Toko</span></div>
+        </div>
+        <div style="border-top: 1px dashed black; border-bottom: 1px dashed black; padding: 3px 0; margin: 3px 0; font-size: 9px;" id="strukItemContainer"></div>
+        <div style="font-size: 9.5px; margin-top: 5px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                <span>TOTAL TAGIHAN:</span>
+                <span id="strukTotal">Rp 0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;" id="strukInfoBayar">
+                <span>BAYAR:</span>
+                <span id="strukBayar">Rp 0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;" id="strukInfoKembalian">
+                <span>KEMBALI:</span>
+                <span id="strukKembalian">Rp 0</span>
+            </div>
+            <div style="margin-top: 3px; font-weight: bold; text-align: center; border: 1px solid black; padding: 2px;" id="strukStatusBox">
+                STATUS: LUNAS
+            </div>
+        </div>
+        <!-- Kolom Tanda Tangan Serah Terima Pedagang & Pembeli -->
+        <div style="display: flex; justify-content: space-between; margin-top: 12px; font-size: 8px; text-align: center;">
+            <div style="width: 45%;">
+                <p style="margin-bottom: 22px;">Diserahkan Oleh,</p>
+                <p style="border-top: 1px solid black; padding-top: 2px;">( Pedagang / Kasir )</p>
+            </div>
+            <div style="width: 45%;">
+                <p style="margin-bottom: 22px;">Diterima Oleh,</p>
+                <p style="border-top: 1px solid black; padding-top: 2px;">( Pembeli )</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 8px; font-size: 7.5px;">
+            <p>Barang yang sudah dibeli telah dicek bersama.</p>
+            <p>Powered by SYAM SATHORIK &bull; SATHORIK PRO INT</p>
+        </div>
+    </div>
+
+    <!-- AREA 2: BON SERAH TERIMA LISENSI APLIKASI (CREATOR KE PEDAGANG) -->
+    <div id="areaCetakBonCreator" class="hidden">
+        <div style="text-align: center; margin-bottom: 5px; border-bottom: 1.5px solid black; padding-bottom: 4px;">
+            <div style="display:flex; justify-content:center; margin-bottom:3px;">
+                <div class="syam-emblem-wrap syam-emblem-sm" data-syam-logo></div>
+            </div>
+            <h3 style="font-weight: bold; font-size: 11px; margin: 0;">SATHORIK PRO INT PUSAT</h3>
+            <p style="font-size: 8px; margin: 1px 0;">BON SERAH TERIMA LISENSI APLIKASI</p>
+            <p style="font-size: 8px; margin: 1px 0;" id="bonCreatorNo">No. Reg: -</p>
+            <p style="font-size: 8px; margin: 1px 0;" id="bonCreatorTanggal">-</p>
+        </div>
+        <div style="font-size: 8.5px; line-height: 1.4; margin: 4px 0;">
+            <div><strong>Pihak Pertama (Creator):</strong><br>Pusat Layanan Aplikasi</div>
+            <div style="margin-top: 3px;"><strong>Pihak Kedua (User/Pedagang):</strong><br><span id="bonCreatorNamaToko">-</span></div>
+            <div><strong>Alamat/Kontak:</strong> <span id="bonCreatorAlamat">-</span></div>
+        </div>
+        <div style="border-top: 1px dashed black; border-bottom: 1px dashed black; padding: 4px 0; margin: 4px 0; font-size: 8.5px;">
+            <div><strong>Item Serah Terima:</strong></div>
+            <div>1x Paket Aplikasi SATHORIK PRO INT (PRO Unlimited)</div>
+            <div style="margin-top: 3px; text-align: center; background: #eee; padding: 3px; border: 1px solid black;">
+                <span>KODE AKTIVASI LISENSI:</span><br>
+                <strong style="font-size: 10px;" id="bonCreatorKode">-</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
+                <span>BIAYA LISENSI:</span>
+                <span id="bonCreatorNominal">Rp 0</span>
+            </div>
+            <div>Status: <strong>LUNAS / AKTIF PERMANEN</strong></div>
+        </div>
+        <div style="font-size: 7.5px; text-align: justify; margin-bottom: 6px;">
+            Dengan ditandatanganinya bon ini, Creator menyerahkan hak akses penggunaan aplikasi SATHORIK PRO INT kepada User/Pedagang tersebut di atas.
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 8px; text-align: center;">
+            <div style="width: 45%;">
+                <p style="margin-bottom: 22px;">Creator (Pusat),</p>
+                <p style="border-top: 1px solid black; padding-top: 2px;">Tim Pengembang</p>
+            </div>
+            <div style="width: 45%;">
+                <p style="margin-bottom: 22px;">Penerima (Pedagang),</p>
+                <p style="border-top: 1px solid black; padding-top: 2px;" id="bonCreatorTtdPenerima">Pemilik Toko</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="w-full text-center py-2 text-[10px] text-gray-500 border-t border-zinc-800">
+        &copy; 2026 SYAM SATHORIK &bull; SATHORIK PRO INT System
+    </footer>
+
+    <!-- SKRIP UTAMA APLIKASI -->
+    <script>
+        // ============================================================
+        // PENGATURAN USERNAME & PASSWORD (UBAH SESUAI KEINGINAN ANDA)
+        // ============================================================
+        const USERNAME_CREATOR_BARU = "Pusat83";
+        const PASSWORD_CREATOR_BARU = "Attala83";
+        const USERNAME_PEDAGANG_DEFAULT = "Warung Berkah";
+        // ============================================================
+
+        // Komoditas & harga dirujuk dari PIHPS Jawa Barat dikelompokkan per kategori + kategori Makanan lengkap
+        let produkDB = [
+            // KATEGORI: SEMBAKO (Rujukan PIHPS Jawa Barat)
+            { id: 1, nama: "Beras Kualitas Medium I (1Kg)", kategori: "Sembako", base_unit: "Kg", stock: 40, hargaEcer: 16750, hargaGrosir: 16200 },
+            { id: 2, nama: "Beras Kualitas Super I (1Kg)", kategori: "Sembako", base_unit: "Kg", stock: 30, hargaEcer: 18050, hargaGrosir: 17500 },
+            { id: 3, nama: "Beras Kualitas Bawah I (1Kg)", kategori: "Sembako", base_unit: "Kg", stock: 35, hargaEcer: 15050, hargaGrosir: 14600 },
+            { id: 4, nama: "Minyak Goreng Kemasan Bermerk I (1L)", kategori: "Sembako", base_unit: "Liter", stock: 28, hargaEcer: 24450, hargaGrosir: 23600 },
+            { id: 5, nama: "Minyak Goreng Curah (1Kg)", kategori: "Sembako", base_unit: "Kg", stock: 35, hargaEcer: 20350, hargaGrosir: 19650 },
+            { id: 6, nama: "Gula Pasir Kualitas Premium (1Kg)", kategori: "Sembako", base_unit: "Kg", stock: 30, hargaEcer: 20750, hargaGrosir: 20000 },
+            { id: 7, nama: "Gula Pasir Lokal (1Kg)", kategori: "Sembako", base_unit: "Kg", stock: 40, hargaEcer: 19650, hargaGrosir: 19000 },
+
+            // KATEGORI: PROTEIN & TELUR (Rujukan PIHPS Jawa Barat)
+            { id: 8, nama: "Telur Ayam Ras Segar (1Kg)", kategori: "Protein & Telur", base_unit: "Kg", stock: 25, hargaEcer: 29100, hargaGrosir: 28000 },
+            { id: 9, nama: "Daging Ayam Ras Segar (1Kg)", kategori: "Protein & Telur", base_unit: "Kg", stock: 18, hargaEcer: 38550, hargaGrosir: 37200 },
+            { id: 10, nama: "Daging Sapi Kualitas 1 (1Kg)", kategori: "Protein & Telur", base_unit: "Kg", stock: 10, hargaEcer: 153350, hargaGrosir: 148500 },
+            { id: 11, nama: "Daging Sapi Kualitas 2 (1Kg)", kategori: "Protein & Telur", base_unit: "Kg", stock: 12, hargaEcer: 144050, hargaGrosir: 139500 },
+
+            // KATEGORI: MAKANAN (Lengkap)
+            { id: 53, nama: "Mie Instan Goreng / Kuah (Pcs)", kategori: "Makanan", base_unit: "Pcs", stock: 80, hargaEcer: 3500, hargaGrosir: 3100 },
+            { id: 54, nama: "Biskuit & Snack Kemasan Warung", kategori: "Makanan", base_unit: "Pcs", stock: 45, hargaEcer: 3000, hargaGrosir: 2500 },
+            { id: 55, nama: "Roti Tawar & Kue Kering Kemasan", kategori: "Makanan", base_unit: "Bungkus", stock: 20, hargaEcer: 12500, hargaGrosir: 11000 },
+            { id: 56, nama: "Kerupuk Mentah / Matang (Bungkus)", kategori: "Makanan", base_unit: "Bungkus", stock: 30, hargaEcer: 8000, hargaGrosir: 7000 },
+
+            // KATEGORI: BUMBU DAPUR (Rujukan PIHPS Jawa Barat & Warung)
+            { id: 12, nama: "Bawang Merah Ukuran Sedang (1Kg)", kategori: "Bumbu Dapur", base_unit: "Kg", stock: 20, hargaEcer: 38050, hargaGrosir: 36500 },
+            { id: 13, nama: "Bawang Putih Ukuran Sedang (1Kg)", kategori: "Bumbu Dapur", base_unit: "Kg", stock: 20, hargaEcer: 38500, hargaGrosir: 37000 },
+            { id: 14, nama: "Cabai Merah Keriting (1Kg)", kategori: "Bumbu Dapur", base_unit: "Kg", stock: 12, hargaEcer: 84250, hargaGrosir: 80750 },
+            { id: 15, nama: "Cabai Merah Besar (1Kg)", kategori: "Bumbu Dapur", base_unit: "Kg", stock: 14, hargaEcer: 67850, hargaGrosir: 65000 },
+            { id: 16, nama: "Cabai Rawit Merah (1Kg)", kategori: "Bumbu Dapur", base_unit: "Kg", stock: 10, hargaEcer: 96800, hargaGrosir: 91100 },
+            { id: 17, nama: "Cabai Rawit Hijau (1Kg)", kategori: "Bumbu Dapur", base_unit: "Kg", stock: 15, hargaEcer: 75300, hargaGrosir: 72000 },
+            { id: 18, nama: "Garam Beryodium (Pck)", kategori: "Bumbu Dapur", base_unit: "Bungkus", stock: 35, hargaEcer: 4000, hargaGrosir: 3500 },
+            { id: 19, nama: "Kecap Manis Bango 550ml", kategori: "Bumbu Dapur", base_unit: "Pouch", stock: 18, hargaEcer: 26000, hargaGrosir: 24500 },
+            { id: 20, nama: "Saus Sambal ABC 275ml", kategori: "Bumbu Dapur", base_unit: "Botol", stock: 14, hargaEcer: 14500, hargaGrosir: 13500 },
+            { id: 21, nama: "Penyedap Rasa Royco Ayam (Renceng)", kategori: "Bumbu Dapur", base_unit: "Renceng", stock: 20, hargaEcer: 6000, hargaGrosir: 5500 },
+
+            // KATEGORI: OBAT WARUNG
+            { id: 22, nama: "Paracetamol 500mg (Strip 10 Tab)", kategori: "Obat Warung", base_unit: "Strip", stock: 30, hargaEcer: 5000, hargaGrosir: 4000 },
+            { id: 23, nama: "Bodrex Sakit Kepala (Strip)", kategori: "Obat Warung", base_unit: "Strip", stock: 25, hargaEcer: 6000, hargaGrosir: 5000 },
+            { id: 24, nama: "Paramex Flu & Sakit Kepala", kategori: "Obat Warung", base_unit: "Strip", stock: 25, hargaEcer: 4000, hargaGrosir: 3200 },
+            { id: 25, nama: "Oskadon SP Nyeri Otot (Strip)", kategori: "Obat Warung", base_unit: "Strip", stock: 20, hargaEcer: 3500, hargaGrosir: 2800 },
+            { id: 26, nama: "Mixagrip Flu & Batuk (Strip)", kategori: "Obat Warung", base_unit: "Strip", stock: 28, hargaEcer: 4000, hargaGrosir: 3300 },
+            { id: 27, nama: "Decolgen Flu (Strip 4 Tab)", kategori: "Obat Warung", base_unit: "Strip", stock: 24, hargaEcer: 3500, hargaGrosir: 2800 },
+            { id: 28, nama: "Komix Obat Batuk Sachet (Box/30)", kategori: "Obat Warung", base_unit: "Sachet", stock: 60, hargaEcer: 2500, hargaGrosir: 2000 },
+            { id: 29, nama: "OBH Combi Batuk Berdahak 60ml", kategori: "Obat Warung", base_unit: "Botol", stock: 12, hargaEcer: 16500, hargaGrosir: 15000 },
+            { id: 30, nama: "Tolak Angin Cair Sidomuncul (Sachet)", kategori: "Obat Warung", base_unit: "Sachet", stock: 48, hargaEcer: 5000, hargaGrosir: 4200 },
+            { id: 31, nama: "Antangin JRG Cair (Sachet)", kategori: "Obat Warung", base_unit: "Sachet", stock: 45, hargaEcer: 4500, hargaGrosir: 3800 },
+            { id: 32, nama: "Promag Obat Maag (Blister 10 Tab)", kategori: "Obat Warung", base_unit: "Strip", stock: 30, hargaEcer: 10000, hargaGrosir: 8800 },
+            { id: 33, nama: "Mylanta Cair Maag 50ml", kategori: "Obat Warung", base_unit: "Botol", stock: 10, hargaEcer: 18500, hargaGrosir: 17000 },
+            { id: 34, nama: "Entrostop Obat Diare (Strip)", kategori: "Obat Warung", base_unit: "Strip", stock: 22, hargaEcer: 9500, hargaGrosir: 8200 },
+            { id: 35, nama: "Diapet Kapsul Diare (Strip)", kategori: "Obat Warung", base_unit: "Strip", stock: 25, hargaEcer: 4000, hargaGrosir: 3200 },
+            { id: 36, nama: "Oralit Sachet Phapros", kategori: "Obat Warung", base_unit: "Sachet", stock: 40, hargaEcer: 2000, hargaGrosir: 1500 },
+            { id: 37, nama: "Minyak Kayu Putih Cap Lang 60ml", kategori: "Obat Warung", base_unit: "Botol", stock: 15, hargaEcer: 24500, hargaGrosir: 22500 },
+            { id: 38, nama: "FreshCare Minyak Angin Roll On", kategori: "Obat Warung", base_unit: "Botol", stock: 18, hargaEcer: 15000, hargaGrosir: 13500 },
+            { id: 39, nama: "Balsem Geliga 20g", kategori: "Obat Warung", base_unit: "Pot", stock: 16, hargaEcer: 11500, hargaGrosir: 10200 },
+            { id: 40, nama: "Betadine Antiseptik Luka 15ml", kategori: "Obat Warung", base_unit: "Botol", stock: 12, hargaEcer: 17500, hargaGrosir: 16000 },
+            { id: 41, nama: "Hansaplast Plester Luka (Lembar)", kategori: "Obat Warung", base_unit: "Pcs", stock: 50, hargaEcer: 1000, hargaGrosir: 700 },
+            { id: 42, nama: "Koyo Cabe / Salonpas (Sachet)", kategori: "Obat Warung", base_unit: "Sachet", stock: 25, hargaEcer: 8500, hargaGrosir: 7500 },
+            { id: 43, nama: "Insto Tetes Mata 7.5ml", kategori: "Obat Warung", base_unit: "Botol", stock: 14, hargaEcer: 16500, hargaGrosir: 15000 },
+
+            // KATEGORI: MINUMAN
+            { id: 44, nama: "Indomie Goreng (Dus/40pcs)", kategori: "Minuman", base_unit: "Dus", stock: 12, hargaEcer: 115000, hargaGrosir: 110000 },
+            { id: 45, nama: "Teh Celup Melati Sosro", kategori: "Minuman", base_unit: "Kotak", stock: 25, hargaEcer: 9500, hargaGrosir: 8800 },
+            { id: 46, nama: "Kopi Kapal Api Sachet (Renceng)", kategori: "Minuman", base_unit: "Renceng", stock: 18, hargaEcer: 13500, hargaGrosir: 12500 },
+            { id: 47, nama: "Susu Kental Manis Frisian Flag", kategori: "Minuman", base_unit: "Kaleng", stock: 22, hargaEcer: 12000, hargaGrosir: 11200 },
+            { id: 48, nama: "Air Mineral Dus (Aqua 600ml)", kategori: "Minuman", base_unit: "Dus", stock: 10, hargaEcer: 52000, hargaGrosir: 48000 },
+
+            // KATEGORI: PERAWATAN TUBUH
+            { id: 49, nama: "Sabun Mandi Lifebuoy", kategori: "Perawatan Tubuh", base_unit: "Pcs", stock: 25, hargaEcer: 4500, hargaGrosir: 4000 },
+            { id: 50, nama: "Shampoo Sachet Clear (Renceng)", kategori: "Perawatan Tubuh", base_unit: "Renceng", stock: 15, hargaEcer: 10000, hargaGrosir: 9000 },
+            { id: 51, nama: "Pasta Gigi Pepsodent 75g", kategori: "Perawatan Tubuh", base_unit: "Pcs", stock: 20, hargaEcer: 9500, hargaGrosir: 8800 },
+            { id: 52, nama: "Deterjen Rinso Anti Noda 800g", kategori: "Perawatan Tubuh", base_unit: "Bungkus", stock: 16, hargaEcer: 20500, hargaGrosir: 19000 }
+        ];
+
+        let keranjang = [];
+        let modeJualAktif = 'ecer';
+        let kategoriPosAktif = 'Semua';
+        let riwayatTransaksiDB = [];
+        let totalOmzet = 0;
+        let totalPiutang = 0;
+        let namaWarungAktif = "Warung Berkah Sembako";
+        let noWaPedagang = "6281234567890";
+
+        const TRIAL_DAYS = 7;
+        let licenseStatus = {
+            isPro: false,
+            installDate: null,
+            daysLeft: TRIAL_DAYS
+        };
+
+        let databaseLisensiUnik = JSON.parse(localStorage.getItem('sathorik_db_lisensi')) || [
+            { kode: "SATHORIK-PRO-8383", pemilik: "Default Pusat", alamat: "Pusat", nominal: 150000, tanggal: "18/11/2026", status: "Aktif" }
+        ];
+
+        function buatSvgEmblemSyam(uid) {
+            const gMetal = `syamMetal_${uid}`;
+            const gText = `syamText_${uid}`;
+            const gBg = `syamBg_${uid}`;
+            const fGlow = `syamGlow_${uid}`;
+            const arcTop = `syamArcTop_${uid}`;
+            const arcBot = `syamArcBot_${uid}`;
+            const arcLowLine = `syamArcLowLine_${uid}`;
+
+            return `
+                <svg viewBox="0 0 240 240" width="100%" height="100%" role="img" aria-label="SYAM SATHORIK Emblem">
+                    <defs>
+                        <linearGradient id="${gMetal}" x1="12%" y1="8%" x2="88%" y2="92%">
+                            <stop offset="0%" stop-color="#fff3bd"/>
+                            <stop offset="30%" stop-color="#e8bd4e"/>
+                            <stop offset="62%" stop-color="#b3821f"/>
+                            <stop offset="100%" stop-color="#fff3bd"/>
+                        </linearGradient>
+                        <linearGradient id="${gText}" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fff3bd"/>
+                            <stop offset="50%" stop-color="#e8bd4e"/>
+                            <stop offset="100%" stop-color="#b3821f"/>
+                        </linearGradient>
+                        <radialGradient id="${gBg}" cx="50%" cy="50%" r="52%">
+                            <stop offset="0%" stop-color="#12100a"/>
+                            <stop offset="100%" stop-color="#050505"/>
+                        </radialGradient>
+                        <filter id="${fGlow}" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="2.4" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <!-- Jalur lengkung atas untuk SYAM -->
+                        <path id="${arcTop}" d="M 48,118 A 72,72 0 0,1 192,118" fill="none"/>
+                        <!-- Jalur lengkung bawah untuk SATHORIK (kiri ke kanan, tegak) -->
+                        <path id="${arcBot}" d="M 62,162 A 74,74 0 0,0 178,162" fill="none"/>
+                        <!-- Garis busur terbuka di bawah lingkaran dalam -->
+                        <path id="${arcLowLine}" d="M 46,112 A 78,78 0 0,0 194,112" fill="none"/>
+                    </defs>
+
+                    <!-- Latar hitam pekat -->
+                    <circle cx="120" cy="120" r="116" fill="url(#${gBg})"/>
+
+                    <!-- 1. Cincin luar emas tebal + 1 garis emas tipis sejajar tepat di dalamnya -->
+                    <circle cx="120" cy="120" r="106" fill="none" stroke="url(#${gMetal})" stroke-width="6.5" filter="url(#${fGlow})"/>
+                    <circle cx="120" cy="120" r="99" fill="none" stroke="url(#${gText})" stroke-width="1.5"/>
+
+                    <!-- Kilau putih tipis di tepi kiri atas cincin luar -->
+                    <path d="M 42,56 A 106,106 0 0,1 112,15" fill="none" stroke="#ffffff" stroke-opacity="0.72" stroke-width="1.4" stroke-linecap="round"/>
+
+                    <!-- 2. Pita teks di antara cincin luar dan lingkaran dalam -->
+                    <text fill="url(#${gText})" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="14" letter-spacing="8.5">
+                        <textPath href="#${arcTop}" startOffset="50%" text-anchor="middle">
+                            <tspan font-size="16">S</tspan><tspan font-size="12.5" dy="-1">Y</tspan><tspan font-size="12.5" dy="1">&#923;</tspan><tspan font-size="16">M</tspan>
+                        </textPath>
+                    </text>
+
+                    <!-- 3. Lingkaran dalam emas tipis -->
+                    <circle cx="120" cy="120" r="76" fill="none" stroke="url(#${gText})" stroke-width="1.6"/>
+
+                    <!-- 4. Busur emas tipis terbuka melewati bagian bawah + titik bulat sedikit di atas garis tengah horizontal -->
+                    <path d="M 46,112 A 78,78 0 0,0 194,112" fill="none" stroke="url(#${gText})" stroke-width="1.4" stroke-linecap="round"/>
+                    <circle cx="46" cy="112" r="2.6" fill="url(#${gText})"/>
+                    <circle cx="194" cy="112" r="2.6" fill="url(#${gText})"/>
+
+                    <!-- Teks lengkung bawah SATHORIK -->
+                    <text fill="url(#${gText})" font-family="Georgia, 'Times New Roman', serif" font-weight="600" font-size="9.5" letter-spacing="5.2">
+                        <textPath href="#${arcBot}" startOffset="50%" text-anchor="middle">SATHORIK</textPath>
+                    </text>
+
+                    <!-- IKON TENGAH: Monogram 4 dan S menyatu seperti tanda dolar (~80% lingkaran dalam) -->
+                    <g filter="url(#${fGlow})">
+                        <!-- Tiga garis vertikal sejajar berdekatan & sama panjang dari atas ke bawah -->
+                        <line x1="108" y1="62" x2="108" y2="178" stroke="url(#${gMetal})" stroke-width="4.4" stroke-linecap="round"/>
+                        <line x1="117" y1="62" x2="117" y2="178" stroke="url(#${gText})" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="125" y1="62" x2="125" y2="178" stroke="url(#${gMetal})" stroke-width="2.8" stroke-linecap="round"/>
+
+                        <!-- Angka 4 bersudut di kiri: diagonal turun ke kiri bawah, horizontal ke batang, bawah berkait seperti J -->
+                        <path d="M 108,68 L 74,122 L 108,122" fill="none" stroke="url(#${gMetal})" stroke-width="4.6" stroke-linejoin="miter"/>
+                        <path d="M 108,158 C 108,176 92,181 84,172" fill="none" stroke="url(#${gMetal})" stroke-width="3.6" stroke-linecap="round"/>
+
+                        <!-- Huruf S di sisi kanan: bendera runcing di kanan atas, menyatu batang 4, lekukan bawah membulat -->
+                        <path d="M 108,82 C 122,78 138,76 154,79 L 146,88 C 134,86 122,87 108,90" fill="url(#${gMetal})"/>
+                        <path d="M 108,88 C 134,94 156,104 156,122 C 156,134 136,138 120,136" fill="none" stroke="url(#${gMetal})" stroke-width="4.8" stroke-linecap="round"/>
+                        <path d="M 120,136 C 142,135 160,143 160,159 C 160,174 142,179 125,175" fill="none" stroke="url(#${gMetal})" stroke-width="5.2" stroke-linecap="round"/>
+
+                        <!-- Celah terputus rapi pada garis vertikal tengah & kanan saat pita S melintas -->
+                        <line x1="117" y1="101" x2="117" y2="114" stroke="#050505" stroke-width="4.5"/>
+                        <line x1="125" y1="101" x2="125" y2="114" stroke="#050505" stroke-width="4.5"/>
+                        <line x1="117" y1="131" x2="117" y2="142" stroke="#050505" stroke-width="4.5"/>
+                        <line x1="125" y1="131" x2="125" y2="142" stroke="#050505" stroke-width="4.5"/>
+                    </g>
+                </svg>
+            `;
+        }
+
+        function tanamLogoSyam() {
+            document.querySelectorAll('[data-syam-logo]').forEach((target, idx) => {
+                target.innerHTML = buatSvgEmblemSyam(idx + 1);
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            tanamLogoSyam();
+            let temaTersimpan = localStorage.getItem('sathorik_tema') || 'gold';
+            ubahTema(temaTersimpan, false);
+            cekDanInisialisasiTrial();
+            aturFormLogin();
+
+            // PENGATURAN ROUTING OTOMATIS BERDASARKAN LINK HASH (#)
+            let hash = window.location.hash;
+            if (hash === '#pembeli') {
+                gantiTab('pesananOnline');
+            } else if (hash === '#pedagang') {
+                gantiTab('pos');
+            } else if (hash === '#creator') {
+                gantiTab('creatorPanel');
+            }
+        });
+
+        function aturFormLogin() {
+            let peran = document.getElementById('pilihPeranLogin').value;
+            let divUser = document.getElementById('divUsername');
+            let divPass = document.getElementById('divPassword');
+            let divWa = document.getElementById('divNoWaPedagang');
+
+            if(peran === 'creator') {
+                divUser.style.display = 'block';
+                divPass.style.display = 'block';
+                divWa.style.display = 'none';
+                document.getElementById('inputUsername').value = '';
+                document.getElementById('inputPassword').placeholder = 'Masukkan password creator...';
+            } else if(peran === 'pedagang') {
+                divUser.style.display = 'block';
+                divPass.style.display = 'block';
+                divWa.style.display = 'block';
+                document.getElementById('inputUsername').value = USERNAME_PEDAGANG_DEFAULT;
+                document.getElementById('inputPassword').value = '12345';
+                document.getElementById('inputNoWa').value = noWaPedagang;
+            } else if(peran === 'pembeli') {
+                divUser.style.display = 'none';
+                divPass.style.display = 'none';
+                divWa.style.display = 'none';
+            }
+        }
+
+        function prosesLoginSathorik() {
+            let peran = document.getElementById('pilihPeranLogin').value;
+
+            if(peran === 'creator') {
+                let user = document.getElementById('inputUsername').value.trim();
+                let pass = document.getElementById('inputPassword').value.trim();
+                if(user === USERNAME_CREATOR_BARU && pass === PASSWORD_CREATOR_BARU) {
+                    alert('Login Creator Berhasil!');
+                    gantiTab('creatorPanel');
+                    renderListKodeCreator();
+                } else {
+                    alert('Username atau Password Creator Salah!');
+                }
+            } else if(peran === 'pedagang') {
+                let user = document.getElementById('inputUsername').value.trim();
+                let pass = document.getElementById('inputPassword').value.trim();
+                let wa = document.getElementById('inputNoWa').value.trim();
+
+                if(!user || !pass) {
+                    alert('Username dan Password wajib diisi!');
+                    return;
+                }
+                namaWarungAktif = user;
+                if(wa) noWaPedagang = wa;
+                document.getElementById('headerNamaWarung').innerText = namaWarungAktif;
+                alert('Selamat datang di SATHORIK PRO INT, ' + namaWarungAktif + '!');
+                gantiTab('pos');
+            } else if(peran === 'pembeli') {
+                gantiTab('pesananOnline');
+            }
+        }
+
+        function generateKodeBaru() {
+            let nama = document.getElementById('namaCustInput').value.trim();
+            let alamat = document.getElementById('alamatCustInput').value.trim() || "-";
+            let nominal = parseInt(document.getElementById('nominalLisensiInput').value) || 0;
+
+            if(!nama) {
+                alert('Masukkan nama toko / pelanggan terlebih dahulu!');
+                return;
+            }
+
+            let randomNum = Math.floor(1000 + Math.random() * 9000);
+            let randomCode = `SATH-${nama.substring(0,3).toUpperCase()}-${randomNum}-PRO`;
+            let tglSekarang = new Date().toLocaleDateString('id-ID');
+
+            let dataBaru = { 
+                kode: randomCode, 
+                pemilik: nama, 
+                alamat: alamat,
+                nominal: nominal,
+                tanggal: tglSekarang,
+                status: "Belum Digunakan" 
+            };
+
+            databaseLisensiUnik.unshift(dataBaru);
+            localStorage.setItem('sathorik_db_lisensi', JSON.stringify(databaseLisensiUnik));
+            
+            document.getElementById('namaCustInput').value = '';
+            document.getElementById('alamatCustInput').value = '';
+            renderListKodeCreator();
+            
+            if(confirm('Kode Lisensi Unik berhasil dibuat:\n' + randomCode + '\n\nCetak Bon Serah Terima Lisensi sekarang?')) {
+                cetakBonSerahTerimaCreator(0);
+            }
+        }
+
+        function renderListKodeCreator() {
+            const container = document.getElementById('daftarListKode');
+            if(!container) return;
+            container.innerHTML = '';
+            databaseLisensiUnik.forEach((item, idx) => {
+                container.innerHTML += `
+                    <div class="bg-zinc-900 border border-goldPrimary/30 p-2 rounded-xl flex justify-between items-center gap-1">
+                        <div>
+                            <p class="font-bold text-goldLight">${item.kode}</p>
+                            <p class="text-[10px] text-gray-400">Toko: <strong>${item.pemilik}</strong> | Rp ${(item.nominal || 0).toLocaleString()}</p>
+                            <p class="text-[9px] text-emerald-400">Status: ${item.status} (${item.tanggal || '-'})</p>
+                        </div>
+                        <div class="flex flex-col space-y-1">
+                            <button onclick="salinKode('${item.kode}')" class="btn-luminous px-2 py-1 bg-zinc-800 border border-goldPrimary/40 text-goldPrimary text-[10px] rounded-lg">📋 Salin</button>
+                            <button onclick="cetakBonSerahTerimaCreator(${idx})" class="btn-luminous px-2 py-1 bg-goldPrimary text-darkBg font-bold text-[10px] rounded-lg">🧾 Bon</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function cetakBonSerahTerimaCreator(index) {
+            let item = databaseLisensiUnik[index];
+            if(!item) return;
+
+            document.getElementById('bonCreatorNo').innerText = "No. Reg: REG-" + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('bonCreatorTanggal').innerText = "Tanggal: " + (item.tanggal || new Date().toLocaleDateString('id-ID'));
+            document.getElementById('bonCreatorNamaToko').innerText = item.pemilik;
+            document.getElementById('bonCreatorAlamat').innerText = item.alamat || "-";
+            document.getElementById('bonCreatorKode').innerText = item.kode;
+            document.getElementById('bonCreatorNominal').innerText = "Rp " + (item.nominal || 0).toLocaleString();
+            document.getElementById('bonCreatorTtdPenerima').innerText = item.pemilik;
+
+            tanamLogoSyam();
+            document.getElementById('areaCetakStruk').classList.remove('area-cetak-aktif');
+            document.getElementById('areaCetakBonCreator').classList.add('area-cetak-aktif');
+            window.print();
+            document.getElementById('areaCetakBonCreator').classList.remove('area-cetak-aktif');
+        }
+
+        function salinKode(kode) {
+            navigator.clipboard.writeText(kode);
+            alert('Kode lisensi disalin: ' + kode);
+        }
+
+        function cekDanInisialisasiTrial() {
+            let savedLicense = localStorage.getItem('sathorik_license');
+            let now = new Date().getTime();
+
+            if (!savedLicense) {
+                licenseStatus = { isPro: false, installDate: now, daysLeft: TRIAL_DAYS };
+                localStorage.setItem('sathorik_license', JSON.stringify(licenseStatus));
+            } else {
+                licenseStatus = JSON.parse(savedLicense);
+                if (!licenseStatus.isPro) {
+                    let elapsedMs = now - licenseStatus.installDate;
+                    let elapsedDays = Math.floor(elapsedMs / (1000 * 60 * 60 * 24));
+                    licenseStatus.daysLeft = Math.max(0, TRIAL_DAYS - elapsedDays);
+                }
+            }
+            updateUIStatusLisensi();
+        }
+
+        function updateUIStatusLisensi() {
+            let badge = document.getElementById('badgeTrial');
+            let info = document.getElementById('infoLisensiStatus');
+
+            if (licenseStatus.isPro) {
+                badge.innerText = "PRO UNLIMITED";
+                badge.className = "px-2 py-0.5 bg-goldPrimary text-darkBg text-[10px] rounded-full font-bold shadow";
+                info.innerText = "Status: Lisensi PRO Permanen (Aktif)";
+                info.className = "text-goldPrimary font-semibold";
+            } else {
+                if (licenseStatus.daysLeft > 0) {
+                    badge.innerText = `Trial: ${licenseStatus.daysLeft} Hari Lagi`;
+                    info.innerText = `Status: Masa Uji Coba (${licenseStatus.daysLeft} hari tersisa)`;
+                    info.className = "text-amber-400 font-semibold";
+                } else {
+                    badge.innerText = "TRIAL HABIS";
+                    badge.className = "px-2 py-0.5 bg-alertRed text-white text-[10px] rounded-full font-bold alert-glow";
+                    info.innerText = "Status: Masa Trial Habis! Harap Hubungi Creator.";
+                    info.className = "text-alertRed font-semibold";
+                }
+            }
+        }
+
+        function ubahTema(jenis, simpan = true) {
+            if (simpan) localStorage.setItem('sathorik_tema', jenis);
+            if (jenis === 'gold') {
+                document.documentElement.style.setProperty('--bg-main', '#050507');
+                document.documentElement.style.setProperty('--text-main', '#F3E5AB');
+                document.documentElement.style.setProperty('--border-color', 'rgba(212, 175, 55, 0.35)');
+                document.documentElement.style.setProperty('--glow-color', 'rgba(212, 175, 55, 0.2)');
+            } else if (jenis === 'emerald') {
+                document.documentElement.style.setProperty('--bg-main', '#022c22');
+                document.documentElement.style.setProperty('--text-main', '#a7f3d0');
+                document.documentElement.style.setProperty('--border-color', 'rgba(16, 185, 129, 0.4)');
+                document.documentElement.style.setProperty('--glow-color', 'rgba(16, 185, 129, 0.25)');
+            } else if (jenis === 'cyber') {
+                document.documentElement.style.setProperty('--bg-main', '#030712');
+                document.documentElement.style.setProperty('--text-main', '#67e8f9');
+                document.documentElement.style.setProperty('--border-color', 'rgba(6, 182, 212, 0.4)');
+                document.documentElement.style.setProperty('--glow-color', 'rgba(6, 182, 212, 0.25)');
+            } else if (jenis === 'ruby') {
+                document.documentElement.style.setProperty('--bg-main', '#180205');
+                document.documentElement.style.setProperty('--text-main', '#fecdd3');
+                document.documentElement.style.setProperty('--border-color', 'rgba(244, 63, 94, 0.4)');
+                document.documentElement.style.setProperty('--glow-color', 'rgba(244, 63, 94, 0.25)');
+            }
+        }
+
+        function gantiTab(tab) {
+            if (!licenseStatus.isPro && licenseStatus.daysLeft <= 0 && (tab === 'pos' || tab === 'stok')) {
+                let kodeInput = prompt("Masa Uji Coba 7 Hari Telah Berakhir!\nMasukkan Kode Lisensi Unik dari Creator:");
+                if (kodeInput) {
+                    let found = databaseLisensiUnik.find(k => k.kode === kodeInput && k.status !== "Terpakai");
+                    if (found || kodeInput === "SATHORIK83-PRO") {
+                        licenseStatus.isPro = true;
+                        if(found) found.status = "Terpakai";
+                        localStorage.setItem('sathorik_db_lisensi', JSON.stringify(databaseLisensiUnik));
+                        localStorage.setItem('sathorik_license', JSON.stringify(licenseStatus));
+                        updateUIStatusLisensi();
+                        alert("Aktivasi Berhasil! Selamat menikmati versi PRO.");
+                    } else {
+                        alert("Kode lisensi tidak valid atau sudah pernah digunakan!");
+                        return;
+                    }
+                } else {
+                    return;
+                }
+            }
+
+            document.getElementById('tabPortal').classList.add('hidden');
+            document.getElementById('tabCreatorPanel').classList.add('hidden');
+            document.getElementById('tabPos').classList.add('hidden');
+            document.getElementById('tabPesananOnline').classList.add('hidden');
+            document.getElementById('tabStok').classList.add('hidden');
+            document.getElementById('tabBukuKas').classList.add('hidden');
+
+            if (tab === 'portal') document.getElementById('tabPortal').classList.remove('hidden');
+            if (tab === 'creatorPanel') document.getElementById('tabCreatorPanel').classList.remove('hidden');
+            if (tab === 'pos') { document.getElementById('tabPos').classList.remove('hidden'); renderKatalog(); renderKeranjang(); }
+            if (tab === 'pesananOnline') document.getElementById('tabPesananOnline').classList.remove('hidden');
+            if (tab === 'stok') { document.getElementById('tabStok').classList.remove('hidden'); renderTabelStok(); }
+            if (tab === 'bukuKas') { document.getElementById('tabBukuKas').classList.remove('hidden'); renderBukuKas(); }
+        }
+
+        function setModeJual(mode) {
+            modeJualAktif = mode;
+            if(mode === 'ecer') {
+                document.getElementById('btnEcer').className = "btn-luminous px-3 py-1 rounded-lg bg-goldPrimary text-darkBg font-bold text-xs transition";
+                document.getElementById('btnGrosir').className = "btn-luminous px-3 py-1 rounded-lg bg-zinc-800 text-gray-300 text-xs transition";
+                document.getElementById('labelModeAktif').innerText = "[Eceran]";
+            } else {
+                document.getElementById('btnGrosir').className = "btn-luminous px-3 py-1 rounded-lg bg-goldPrimary text-darkBg font-bold text-xs transition";
+                document.getElementById('btnEcer').className = "btn-luminous px-3 py-1 rounded-lg bg-zinc-800 text-gray-300 text-xs transition";
+                document.getElementById('labelModeAktif').innerText = "[Grosir]";
+            }
+            renderKatalog();
+            renderKeranjang();
+        }
+
+        function filterKategoriPos(kat) {
+            kategoriPosAktif = kat;
+            renderKatalog();
+        }
+
+        function renderKatalog() {
+            const container = document.getElementById('daftarKatalog');
+            if(!container) return;
+            container.innerHTML = '';
+            let list = kategoriPosAktif === 'Semua' ? produkDB : produkDB.filter(p => p.kategori === kategoriPosAktif);
+
+            list.forEach(p => {
+                let harga = modeJualAktif === 'ecer' ? p.hargaEcer : p.hargaGrosir;
+                let statusStokWarna = p.stock === 0 ? 'text-alertRed font-bold' : (p.stock <= 3 ? 'text-amber-400 font-bold' : 'text-gray-400');
+                let badgeKatWarna = p.kategori === 'Obat Warung' ? 'text-emerald-400' : (p.kategori === 'Protein & Telur' ? 'text-amber-300' : 'text-goldPrimary');
+                
+                container.innerHTML += `
+                    <div onclick="tambahKeKeranjang(${p.id})" class="bg-zinc-900 border ${p.stock === 0 ? 'border-alertRed/50 opacity-60' : 'border-goldPrimary/30'} rounded-xl p-2 cursor-pointer hover:border-goldPrimary transition flex flex-col justify-between">
+                        <div>
+                            <span class="text-[9px] px-1.5 py-0.5 bg-zinc-800 ${badgeKatWarna} rounded">${p.kategori}</span>
+                            <h4 class="text-xs font-bold text-white mt-1 line-clamp-1">${p.nama}</h4>
+                        </div>
+                        <div class="mt-2 flex justify-between items-end">
+                            <div>
+                                <p class="text-[10px] text-goldLight font-semibold">Rp ${harga.toLocaleString()}</p>
+                                <p class="text-[9px] ${statusStokWarna}">Stok: ${p.stock} ${p.base_unit}</p>
+                            </div>
+                            <span class="btn-luminous text-xs px-1.5 py-0.5 bg-goldPrimary text-darkBg rounded font-bold">+</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterKatalog() {
+            let keyword = document.getElementById('cariBarang').value.toLowerCase();
+            const container = document.getElementById('daftarKatalog');
+            if(!container) return;
+            container.innerHTML = '';
+            let filtered = produkDB.filter(p => p.nama.toLowerCase().includes(keyword) || p.kategori.toLowerCase().includes(keyword));
+            filtered.forEach(p => {
+                let harga = modeJualAktif === 'ecer' ? p.hargaEcer : p.hargaGrosir;
+                container.innerHTML += `
+                    <div onclick="tambahKeKeranjang(${p.id})" class="bg-zinc-900 border border-goldPrimary/30 rounded-xl p-2 cursor-pointer hover:border-goldPrimary transition flex flex-col justify-between">
+                        <div>
+                            <span class="text-[9px] px-1.5 py-0.5 bg-zinc-800 text-goldPrimary rounded">${p.kategori}</span>
+                            <h4 class="text-xs font-bold text-white mt-1">${p.nama}</h4>
+                        </div>
+                        <div class="mt-2 flex justify-between items-end">
+                            <div>
+                                <p class="text-[10px] text-goldLight font-semibold">Rp ${harga.toLocaleString()}</p>
+                                <p class="text-[9px] text-gray-400">Stok: ${p.stock}</p>
+                            </div>
+                            <span class="btn-luminous text-xs px-1.5 py-0.5 bg-goldPrimary text-darkBg rounded font-bold">+</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function tambahKeKeranjang(id) {
+            let prod = produkDB.find(p => p.id === id);
+            if(!prod) return;
+            if(prod.stock <= 0) {
+                alert('Stok barang habis!');
+                return;
+            }
+            let item = keranjang.find(k => k.id === id && k.mode === modeJualAktif);
+            let hargaJual = modeJualAktif === 'ecer' ? prod.hargaEcer : prod.hargaGrosir;
+
+            if(item) {
+                if(item.qty < prod.stock) item.qty++;
+                else alert('Stok tidak mencukupi!');
+            } else {
+                keranjang.push({ id: prod.id, nama: prod.nama, harga: hargaJual, qty: 1, mode: modeJualAktif });
+            }
+            renderKeranjang();
+        }
+
+        function renderKeranjang() {
+            const container = document.getElementById('isiKeranjang');
+            if(!container) return;
+            if(keranjang.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-2">Keranjang masih kosong</p>';
+                document.getElementById('totalBelanja').innerText = 'Rp 0';
+                return;
+            }
+
+            container.innerHTML = '';
+            let total = 0;
+            keranjang.forEach((k, index) => {
+                let subtotal = k.harga * k.qty;
+                total += subtotal;
+                container.innerHTML += `
+                    <div class="flex justify-between items-center bg-zinc-900/80 p-2 rounded-lg border border-zinc-800">
+                        <div>
+                            <p class="font-bold text-white">${k.nama} <span class="text-[9px] text-amber-400">(${k.mode})</span></p>
+                            <p class="text-[10px] text-gray-400">${k.qty} x Rp ${k.harga.toLocaleString()}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-semibold text-goldLight">Rp ${subtotal.toLocaleString()}</span>
+                            <button onclick="hapusItemKeranjang(${index})" class="btn-luminous text-alertRed font-bold px-1.5 py-0.5 bg-alertRed/10 rounded">×</button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('totalBelanja').innerText = 'Rp ' + total.toLocaleString();
+        }
+
+        function hapusItemKeranjang(index) {
+            keranjang.splice(index, 1);
+            renderKeranjang();
+        }
+
+        function prosesBayar(metode) {
+            if(keranjang.length === 0) {
+                alert('Keranjang belanja masih kosong!');
+                return;
+            }
+            let total = keranjang.reduce((sum, item) => sum + (item.harga * item.qty), 0);
+            let noBon = "BON-" + new Date().getFullYear() + Math.floor(10000 + Math.random() * 90000);
+            
+            if(metode === 'tunai') {
+                let namaPembeli = prompt("Nama Pembeli:", "Pelanggan Umum") || "Pelanggan Umum";
+                let bayar = prompt("Total Tagihan: Rp " + total.toLocaleString() + "\nMasukkan jumlah uang tunai:");
+                if(bayar === null) return;
+                let uangBayar = parseInt(bayar);
+                if(isNaN(uangBayar) || uangBayar < total) {
+                    alert('Uang pembayaran kurang atau tidak valid!');
+                    return;
+                }
+                let kembalian = uangBayar - total;
+                alert('Pembayaran Tunai LUNAS!\nKembalian: Rp ' + kembalian.toLocaleString());
+                
+                let itemSnapshot = JSON.parse(JSON.stringify(keranjang));
+                siapkanDanCetakStruk(noBon, namaPembeli, itemSnapshot, total, 'TUNAI LUNAS', uangBayar, kembalian);
+                kurangiStokDanCatat(noBon, namaPembeli, itemSnapshot, total, 'LUNAS (Tunai)', uangBayar, kembalian);
+            } else {
+                let namaPelanggan = prompt("Catat Hutang (Kasbon)\nMasukkan Nama Pelanggan:");
+                if(!namaPelanggan) return;
+                alert('Kasbon atas nama ' + namaPelanggan + ' sebesar Rp ' + total.toLocaleString() + ' dicatat.');
+                totalPiutang += total;
+                
+                let itemSnapshot = JSON.parse(JSON.stringify(keranjang));
+                siapkanDanCetakStruk(noBon, namaPelanggan, itemSnapshot, total, 'KASBON / HUTANG', 0, 0);
+                kurangiStokDanCatat(noBon, namaPelanggan, itemSnapshot, total, 'HUTANG (' + namaPelanggan + ')', 0, 0);
+            }
+        }
+
+        function kirimPesananWhatsApp() {
+            let nama = document.getElementById('namaPembeliWA').value.trim();
+            let metode = document.getElementById('metodeKirimWA').value;
+            let catatan = document.getElementById('catatanPesananWA').value.trim();
+
+            if(!nama) { alert('Masukkan nama Anda.'); return; }
+            if(!catatan) { alert('Tulis daftar belanjaan.'); return; }
+
+            let pesan = `Halo *${namaWarungAktif}*,\n\nSaya ingin memesan produk berikut:\n\n*Nama Pemesan:* ${nama}\n*Metode:* ${metode}\n*Daftar Pesanan:*\n${catatan}\n\nTerima kasih!`;
+            let urlWa = `https://wa.me/${noWaPedagang}?text=${encodeURIComponent(pesan)}`;
+            window.open(urlWa, '_blank');
+        }
+
+        function siapkanDanCetakStruk(noBon, namaPembeli, items, total, statusBayar, bayar, kembalian, tanyaKonfirmasi = true) {
+            document.getElementById('strukNamaWarung').innerText = namaWarungAktif.toUpperCase();
+            document.getElementById('strukNoBon').innerText = "No. Bon: " + noBon;
+            document.getElementById('strukWaktu').innerText = "Tgl/Jam: " + new Date().toLocaleString('id-ID');
+            document.getElementById('strukNamaPembeli').innerText = namaPembeli;
+            document.getElementById('strukKasir').innerText = namaWarungAktif;
+            
+            let container = document.getElementById('strukItemContainer');
+            if(!container) return;
+            container.innerHTML = '';
+            items.forEach(k => {
+                container.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 2px;">
+                        <span>${k.nama} (${k.qty}x @${k.harga.toLocaleString()})</span>
+                        <span>Rp ${(k.harga * k.qty).toLocaleString()}</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('strukTotal').innerText = 'Rp ' + total.toLocaleString();
+            document.getElementById('strukInfoBayar').innerHTML = `<span>BAYAR:</span> <span>Rp ${bayar.toLocaleString()}</span>`;
+            document.getElementById('strukInfoKembalian').innerHTML = `<span>KEMBALI:</span> <span>Rp ${kembalian.toLocaleString()}</span>`;
+            document.getElementById('strukStatusBox').innerText = "STATUS: " + statusBayar;
+
+            tanamLogoSyam();
+            if(!tanyaKonfirmasi || confirm("Cetak Bon Transaksi (58mm / PDF)?")) {
+                document.getElementById('areaCetakBonCreator').classList.remove('area-cetak-aktif');
+                document.getElementById('areaCetakStruk').classList.add('area-cetak-aktif');
+                window.print();
+                document.getElementById('areaCetakStruk').classList.remove('area-cetak-aktif');
+            }
+        }
+
+        function cetakUlangBonTransaksi(idx) {
+            let trx = riwayatTransaksiDB[idx];
+            if(!trx) return;
+            siapkanDanCetakStruk(trx.noBon, trx.pembeli, trx.items, trx.total, trx.status, trx.bayar, trx.kembalian, false);
+        }
+
+        function cetakLaporanKas() {
+            window.print();
+        }
+
+        function kurangiStokDanCatat(noBon, namaPembeli, items, total, statusNota, bayar, kembalian) {
+            items.forEach(k => {
+                let prod = produkDB.find(p => p.id === k.id);
+                if(prod) prod.stock = Math.max(0, prod.stock - k.qty);
+            });
+            if(statusNota.includes('LUNAS')) totalOmzet += total;
+            riwayatTransaksiDB.unshift({
+                noBon: noBon,
+                pembeli: namaPembeli,
+                items: items,
+                waktu: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                total: total,
+                bayar: bayar,
+                kembalian: kembalian,
+                status: statusNota
+            });
+            keranjang = [];
+            renderKeranjang();
+            renderKatalog();
+        }
+
+        function renderTabelStok() {
+            const container = document.getElementById('tabelStok');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            let kategoriPilih = document.getElementById('filterKategoriStok').value;
+            let filteredProduk = kategoriPilih === 'Semua' ? produkDB : produkDB.filter(p => p.kategori === kategoriPilih);
+
+            filteredProduk.forEach(p => {
+                let statusBadge = p.stock === 0 ? '<span class="px-2 py-0.5 bg-alertRed text-white text-[9px] font-bold rounded alert-glow">HABIS</span>' : (p.stock <= 3 ? '<span class="px-2 py-0.5 bg-amber-500 text-darkBg text-[9px] font-bold rounded">MENIPIS</span>' : '<span class="px-2 py-0.5 bg-emerald-600/30 text-emerald-400 text-[9px] font-semibold rounded">AMAN</span>');
+
+                container.innerHTML += `
+                    <div class="bg-zinc-900 border border-goldPrimary/30 rounded-xl p-2.5 flex justify-between items-center">
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h4 class="font-bold text-white text-xs">${p.nama}</h4>
+                                ${statusBadge}
+                            </div>
+                            <p class="text-[10px] text-gray-400 mt-0.5"><span class="text-goldPrimary">${p.kategori}</span> | Stok: <strong>${p.stock} ${p.base_unit}</strong></p>
+                            <p class="text-[10px] text-goldLight">Ecer: Rp ${p.hargaEcer.toLocaleString()} | Grosir: Rp ${p.hargaGrosir.toLocaleString()}</p>
+                        </div>
+                        <button onclick="restockProduk(${p.id})" class="btn-luminous px-2.5 py-1 bg-goldPrimary text-darkBg font-bold rounded-lg text-[10px] shadow">+ Restock</button>
+                    </div>
+                `;
+            });
+        }
+
+        function restockProduk(id) {
+            let prod = produkDB.find(p => p.id === id);
+            let tambah = prompt("Tambah stok untuk " + prod.nama + ":", "15");
+            if(tambah) {
+                let jml = parseInt(tambah);
+                if(!isNaN(jml) && jml > 0) {
+                    prod.stock += jml;
+                    alert('Stok berhasil ditambah!');
+                    renderTabelStok();
+                }
+            }
+        }
+
+        function tambahProdukBaru() {
+            let nama = prompt("Nama Barang Baru:");
+            if(!nama) return;
+            let kategori = prompt("Kategori (Sembako / Protein & Telur / Makanan / Obat Warung / Minuman / Bumbu Dapur / Perawatan Tubuh):", "Makanan");
+            let satuan = prompt("Satuan Barang (cth: Pcs, Bungkus, Kg, Strip, Botol, Sachet, Dus):", "Pcs");
+            let stok = parseInt(prompt("Stok Awal:", "10"));
+            let hEcer = parseInt(prompt("Harga Eceran (Rp):", "5000"));
+            let hGrosir = parseInt(prompt("Harga Grosir (Rp):", "4000"));
+
+            if(nama && !isNaN(stok)) {
+                produkDB.push({ 
+                    id: produkDB.length + 100, 
+                    nama: nama, 
+                    kategori: kategori, 
+                    base_unit: satuan, 
+                    stock: stok, 
+                    hargaEcer: hEcer, 
+                    hargaGrosir: hGrosir 
+                });
+                alert('Produk baru berhasil ditambahkan!');
+                renderTabelStok();
+            }
+        }
+
+        function renderBukuKas() {
+            document.getElementById('statOmzet').innerText = 'Rp ' + totalOmzet.toLocaleString();
+            document.getElementById('statHutang').innerText = 'Rp ' + totalPiutang.toLocaleString();
+
+            const container = document.getElementById('riwayatTransaksi');
+            if(!container) return;
+            if(riwayatTransaksiDB.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-2">Belum ada transaksi.</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            riwayatTransaksiDB.forEach((trx, idx) => {
+                let statusWarna = trx.status.includes('LUNAS') ? 'text-emerald-400' : 'text-alertRed';
+                container.innerHTML += `
+                    <div class="bg-zinc-900 border border-goldPrimary/20 p-2.5 rounded-xl space-y-1">
+                        <div class="flex justify-between text-[10px] text-gray-400 border-b border-zinc-800 pb-1">
+                            <span>${trx.noBon} &bull; ${trx.waktu}</span>
+                            <span class="font-bold ${statusWarna}">${trx.status}</span>
+                        </div>
+                        <div class="flex justify-between items-center font-bold text-white">
+                            <div>
+                                <p class="text-[10px] text-gray-400 font-normal">Pembeli: ${trx.pembeli}</p>
+                                <span class="text-goldPrimary">Rp ${trx.total.toLocaleString()}</span>
+                            </div>
+                            <button onclick="cetakUlangBonTransaksi(${idx})" class="btn-luminous px-2 py-1 bg-goldPrimary text-darkBg text-[10px] rounded-lg font-bold">🧾 Bon</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
